@@ -1,0 +1,122 @@
+@import "http://fonts.googleapis.com/css?family=Raleway";
+/*----------------------------------------------
+CSS settings for HTML div Exact Center
+------------------------------------------------*/
+#abc {
+width:100%;
+height:100%;
+
+top:0;
+left:0;
+display:none;
+position:fixed;
+background-color:#313131de;
+overflow:auto;
+z-index:100 ;
+}
+img#close {
+position:absolute;
+right:-14px;
+top:-14px;
+cursor:pointer
+}
+div#popupContact {
+position:absolute;
+left:50%;
+top:17%;
+margin-left:-202px;
+font-family:'Raleway',sans-serif
+}
+#form1 {
+max-width:300px;
+min-width:250px;
+padding:10px 50px;
+border:2px solid lightpink;
+border-radius:10px;
+font-family:raleway;
+background-color:#fff;
+
+}
+#form p{
+margin-top:30px;
+text-align: left;
+font-size: 2.5em;
+}
+h2 {
+background-color:lightgrey;
+color: #fff;
+padding:20px 35px;
+margin:-10px -50px 10px -50px;
+text-align:center;
+border-radius:10px 10px 0 0;
+font-size: 2.5em;
+opacity: 1;
+}
+hr {
+margin:10px -50px;
+border:0;
+border-top:1px none lightgrey
+}
+input[type=text] {
+width:82%;
+padding:10px;
+margin-top:30px;
+border:1px solid;
+border-color: lightgray;
+padding-left:40px;
+font-size:16px;
+font-family:raleway
+}
+
+
+
+textarea {
+
+width:82%;
+height:95px;
+padding:10px;
+resize:none;
+margin-top:30px;
+margin-bottom: 20px;
+border:1px solid #ccc;
+padding-left:40px;
+font-size:16px;
+font-family:raleway;
+margin-bottom:30px;
+border:1px solid lightgrey;
+}
+#submit {
+text-decoration:none;
+width:100%;
+text-align:center;
+display:block;
+background-color:lightgrey;
+color:#fff;
+border:1px solid grey;
+padding:9px 0;
+font-size:20px;
+cursor:pointer;
+border-radius:5px;
+position: relative;
+top: -10px;
+}
+span {
+color:red;
+font-weight:700
+}
+button {
+width:10%;
+height:45px;
+border-radius:3px;
+background-color:lightpink;
+color:grey;
+font-family:'Raleway',sans-serif;
+font-size:18px;
+cursor:pointer;
+overflow: hidden;
+}
+#submitButton1{
+    position: relative;
+    left: 500px;
+    width: 200%;
+}
