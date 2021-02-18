@@ -239,3 +239,7 @@ nav {
   transition: all 0.4s ease;
   top: 0;
 }
+
+#generalInfo > h3 {
+  margin-top: 0px;
+}

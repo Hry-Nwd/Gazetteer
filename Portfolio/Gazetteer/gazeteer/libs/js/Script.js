@@ -102,7 +102,7 @@ function restApi (code) {
 
             $("#capitalCity").html(`${Capital} is the capital of ${countryName}`);
             $("#languages").html(`${languages} is the main language spoken`)
-            $("#population").html(`${countryName} has a population of ${population}`)
+            $("#population").html(`${countryName} has a population of ${population} people`)
             $("#currency").html(`${countryName} has a total of ${amountOfCurrencies}, its main currency is ${currency.name}`)
             if(countryName === "Canada"){
                 map.flyTo(latlng, 3)
