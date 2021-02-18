@@ -146,7 +146,7 @@ function getCountryInfo() {
 
 
 
-
+//test
 document.getElementById("btn").addEventListener("click", async  () => {
     selectedCountry = $('#country-sel :selected').val()
     getCountryInfo()
