@@ -93,6 +93,8 @@ function restApi (code) {
             const Capital = result.data.capital
             const languages = result.data.languages[0].name
             const population = result.data.population
+            const currency = result.data.currencies[0]
+            const amountOfCurrencies = result.data.currencies.length
 
             console.log(result.data)
 
@@ -101,6 +103,7 @@ function restApi (code) {
             $("#capitalCity").html(`${Capital} is the capital of ${countryName}`);
             $("#languages").html(`${languages} is the main language spoken`)
             $("#population").html(`${countryName} has a population of ${population}`)
+            $("#currency").html(`${countryName} has a total of ${amountOfCurrencies}, its main currency is ${currency.name}`)
             if(countryName === "Canada"){
                 map.flyTo(latlng, 3)
             } else {
