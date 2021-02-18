@@ -6,6 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title> Coding Train: Data/APIs 1</title>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
         integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
         crossorigin=""/>
@@ -13,25 +14,37 @@
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
+          <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <style>
             #mapid { height: 180px; width: 50%; }
         </style>
     </head>
     <body>
-        <a href="../index.html"><li>Home</li></a>
-        <a href="../About/index.html"><li>About Me</li></a>
-        <a href="../Portfolio/index.html"><li>Portfolio</li></a>
-        <a href="../Contact/index.html"><li>Contact</li></a>
-        <h1>Where is the ISS</h1>
-        <p>
-        Latitude: <span id="lat"></spanS<br />
-        Longitude: <span id="long"></span><br />
-
-        <div id="mapid"></div>
-        </p>
-
-
-
-        <script src="libs/main.js"></script>
+        <div class="container">
+            <header>
+                <nav>
+                    <a href="../../index.html"><li>Home</li></a>
+                    <a href="../../About/index.html"><li>About Me</li></a>
+                    <a href="../index.html"><li>Portfolio</li></a>
+                    <a href="../../Contact/index.html"><li>Contact</li></a>
+                </nav>
+            </header>
+            <main>
+                <h1>Where is the ISS</h1>
+                <p>
+                    Latitude: <span id="lat"></span><br />
+                    Longitude: <span id="long"></span><br />
+                    <div id="mapid"></div>
+                </p>
+            </main>
+            <footer>
+                <script src="Libs/main.js"></script>
+            </footer>
+        </div>
     </body>
 </html>

@@ -19,9 +19,9 @@
 
            //making a custom marker
            const issIcon = L.icon({
-               iconUrl: 'ISS200.png',
+               iconUrl: "iss.png",
                iconSize: [50 , 32],
-               iconAnchor: [25, 16],
+               iconAnchor: [25, 16]
            });
            const marker = L.marker([0, 0], {icon: issIcon}).addTo(mymap);
 
@@ -53,3 +53,4 @@
 
            setInterval(getIss, 10000);
        
+           
