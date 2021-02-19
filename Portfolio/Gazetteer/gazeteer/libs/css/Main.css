@@ -130,7 +130,74 @@ nav {
     transition: all 0.4s ease;
   }
 }
+.line {
+  position: relative;
+  top: 18px;
+  width: 25px;
+  height: 2px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+}
+.line::before,
+.line::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: -10px;
+  height: 2px;
+  width: 100%;
+  background: inherit;
+}
+.line::after {
+  top: 10px;
+}
+.line.x {
+  transform: rotate(315deg);
+  transition: all 0.4s ease;
+}
 
+.line.x::before,
+.line.x::after {
+  transform: rotate(90deg);
+  transition: all 0.4s ease;
+  top: 0;
+}
+.line.x:hover {
+  transform: rotate(225deg);
+  transition: all 0.4s ease;
+}
+#menuText {
+  display: flexbox;
+  position: relative;
+  font-size: 17px;
+  font-family: "Raleway", sans-serif;
+  color: white;
+  top: 13px;
+  margin: 0 auto;
+  width: fit-content;
+  height: fit-content;
+  margin-left: 3px;
+  text-shadow: grey -1px -1px;
+  transition: scale 1s ease;
+  transition: opacity 0.1s ease;
+}
+
+#menuText:hover {
+  transform: scale(1.1);
+  transition: all 1s ease;
+}
+#infoCards {
+  left: -40px;
+}
+#menuText.hide {
+  opacity: 0%;
+  transition: 0.1s ease;
+  position: relative;
+  left: -40px;
+}
 #menu {
   z-index: 1;
   top: 83vh;
@@ -141,10 +208,11 @@ nav {
   background-color: rgba(54, 52, 63, 0.7);
   display: flex;
   border-radius: 10%;
-  overflow: hidden;
+
   left: 0%;
   transition: height 0.4s ease, width 0.5s ease, top 0.4s ease-in-out,
     left 0.4s ease;
+  text-align: center;
 }
 #menu.opened {
   z-index: 1;
@@ -182,6 +250,8 @@ nav {
 
 #infoCards {
   width: 100%;
+  position: relative;
+  left: -18px;
 }
 #infoCardBody {
   height: 65%;
@@ -230,16 +300,58 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.4s ease;
   transform: rotate(45deg);
+  opacity: 0;
 }
 #closeLine::before,
 #closeLine::after {
+  content: "";
+  position: absolute;
+  background: inherit;
   transform: rotate(90deg);
   transition: all 0.4s ease;
   top: 0;
 }
 
-#generalInfo > h3 {
+#closeLine.opened {
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+#currencyCardTabs,
+#infoCardTabs {
+  display: inline-flex;
+  justify-content: center;
+  height: 45px;
+  width: 55px;
+  position: absolute;
+  left: -70px;
+  top: 125px;
+  border-radius: 5px;
+  background-color: rgba(54, 52, 63, 0.7);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+#infoCardTabs {
+  top: 70px;
+}
+
+#currencyCardTabs.opened,
+#infoCardTabs.opened {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+#currencyTab {
+  transform: scale(0.6);
+  transition: all 1s ease;
+}
+
+#currencyTab:hover {
+  transform: scale(0.7);
+  transition: all 1s ease;
+}
+
+#cardTitle {
   margin-top: 0px;
 }

@@ -93,8 +93,6 @@ function restApi (code) {
             const Capital = result.data.capital
             const languages = result.data.languages[0].name
             const population = result.data.population
-            const currency = result.data.currencies[0]
-            const amountOfCurrencies = result.data.currencies.length
 
             console.log(result.data)
 
@@ -102,8 +100,7 @@ function restApi (code) {
 
             $("#capitalCity").html(`${Capital} is the capital of ${countryName}`);
             $("#languages").html(`${languages} is the main language spoken`)
-            $("#population").html(`${countryName} has a population of ${population} people`)
-            $("#currency").html(`${countryName} has a total of ${amountOfCurrencies}, its main currency is ${currency.name}`)
+            $("#population").html(`${countryName} has a population of ${population}`)
             if(countryName === "Canada"){
                 map.flyTo(latlng, 3)
             } else {
@@ -149,7 +146,7 @@ function getCountryInfo() {
 
 
 
-//test
+
 document.getElementById("btn").addEventListener("click", async  () => {
     selectedCountry = $('#country-sel :selected').val()
     getCountryInfo()
@@ -169,24 +166,36 @@ hamburger.addEventListener("click", () => {
 })
 
 const menu = document.querySelector(".menu")
-const infoImage = document.querySelector("#info")
+const menuText = document.querySelector("#menuText")
 const infoCardHeader = document.querySelector("#infoCardHeader");
 const countryName = document.querySelector("#countryName");
+const infoCardTab = document.querySelector("#infoCardTabs");
+const currencyCardTab = document.querySelector("#currencyCardTabs");
+const closeMenu = document.querySelector("#closeLine")
 
 
-infoImage.addEventListener("click", () => {
+menuText.addEventListener("click", () => {
+    menuText.classList.toggle("hide")
     menu.classList.toggle("opened")
     infoCardHeader.classList.toggle("opened")
     countryName.classList.toggle('opened');
-    infoImage.classList.toggle("hide")
+    infoCardTab.classList.toggle("opened")
+    currencyCardTab.classList.toggle("opened")
+    closeMenu.classList.toggle("opened")
+    
+
 })
 
-const closeMenu = document.querySelector("#closeLine")
+
 
 closeMenu.addEventListener("click", () => {
     menu.classList.toggle("opened");
-    infoImage.classList.toggle("hide")
+    menuText.classList.toggle("hide")
     infoCardHeader.classList.toggle("opened")
     countryName.classList.toggle('opened');
+    infoCardTab.classList.toggle("opened")
+    currencyCardTab.classList.toggle("opened")
+    closeMenu.classList.toggle("opened")
+
     
 })

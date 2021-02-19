@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="./libs/css/Style.css" />
-    <link rel="stylesheet" href="./libs/css/Menu.css" />
+    <link rel="stylesheet" href="./libs/css/Main.css" />
 
     <!-- Leaflet.JS stylesheet-->
     <link
@@ -212,12 +212,17 @@
     </header>
     <div id="map"></div>
     <div id="menu" class="menu">
-      <img id="info" src="./libs/images/Info white.png" />
-
+      <p id="menuText">Menu</p>
+      <div id="infoCardTabs">
+        <img src="./libs/images/Info white.png" id="currencyTab" />
+      </div>
+      <div id="currencyCardTabs">
+        <img src="./libs/images/currency.png" id="currencyTab" />
+      </div>
       <div id="infoCards">
         <div id="infoCardHeader" class="infocards">
           <div id="infoCardCountryName">
-            <h3 id="countryName"></h3>
+            <h3 id="countryName">England</h3>
           </div>
           <div id="flagDiv">
             <img id="flag" src="" />
@@ -226,15 +231,12 @@
         <div id="infoCardBody">
           <div id="mainBody">
             <div id="mainContent">
-              <div id="generalInfo">
-                <h5>General Information</h5>
-                <p id="capitalCity"></p>
-                <p id="population"></p>
-                <p id="languages"></p>
-              </div>
-              <div id="currencyInfo">
-                <p id="currency"></p>
-              </div>
+              <p id="capitalCity"></p>
+              <p id="population"></p>
+              <p id="languages"></p>
+            </div>
+            <div id="currencyContent">
+              <p id="currency"></p>
             </div>
           </div>
         </div>
