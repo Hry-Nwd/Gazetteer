@@ -76,6 +76,23 @@ map.locate({setView: true, maxZoom: 10});
 
 var border = {}
 
+function weatherApi(city, country){
+        
+    $.ajax({
+        url: `libs/php/restCountries.php`,
+        type: "POST",
+        dataType: 'json',
+        data:{
+            city: city,
+            country: country
+        },
+        success: function(result){
+
+            console.log(result)
+            
+        }
+    })
+}
 function restApi (code) {
     
     $.ajax({
@@ -90,17 +107,21 @@ function restApi (code) {
         success: function(result){
             
             const countryName = result.data.name
-            const Capital = result.data.capital
-            const languages = result.data.languages[0].name
-            const population = result.data.population
+            const capital = result.data.capital
+            const languages = result.data.languages[0].name;
+            const population = result.data.population;
+            const currency = result.data.currencies[0].name;
+            const countryCode = result.data.alpha2Code;
+            const latlng = result.data.latlng
+
+            weatherApi(capital, countryCode)
 
             console.log(result.data)
 
-            const latlng = result.data.latlng
-
             $("#capitalCity").html(`${Capital} is the capital of ${countryName}`);
             $("#languages").html(`${languages} is the main language spoken`)
-            $("#population").html(`${countryName} has a population of ${population}`)
+            $("#population").html(`${countryName} has a population of ${population} people`)
+            $("#currency").html(`${countryName} uses the ${currency} as its main currency`)
             if(countryName === "Canada"){
                 map.flyTo(latlng, 3)
             } else {
@@ -167,21 +188,54 @@ hamburger.addEventListener("click", () => {
 
 const menu = document.querySelector(".menu")
 const menuText = document.querySelector("#menuText")
+
 const infoCardHeader = document.querySelector("#infoCardHeader");
 const countryName = document.querySelector("#countryName");
+const flagDiv = document.querySelector("#flagDiv");
+
 const infoCardTab = document.querySelector("#infoCardTabs");
 const currencyCardTab = document.querySelector("#currencyCardTabs");
-const closeMenu = document.querySelector("#closeLine")
+const weatherCardTab = document.querySelector("#weatherCardTabs");
 
+const infoContent = document.querySelector("#mainContent");
+const currencyContent = document.querySelector("#currencyContent");
+const weatherContent = document.querySelector("#weatherContent");
+
+const closeMenu = document.querySelector("#closeLine");
+
+
+weatherCardTab.addEventListener("click", () => {
+    currencyContent.classList.remove("selected");
+    weatherContent.classList.add("selected");
+    infoContent.classList.remove("selected");
+})
+
+
+currencyCardTab.addEventListener("click", () => {
+    currencyContent.classList.add("selected")
+    infoContent.classList.remove("selected");
+    weatherContent.classList.remove("selected");
+})
+
+infoCardTab.addEventListener("click", () => {
+    currencyContent.classList.remove("selected")
+    infoContent.classList.add("selected");
+    weatherContent.classList.remove("selected");
+})
 
 menuText.addEventListener("click", () => {
+    infoContent.classList.add("selected");
     menuText.classList.toggle("hide")
     menu.classList.toggle("opened")
     infoCardHeader.classList.toggle("opened")
     countryName.classList.toggle('opened');
+
+    weatherCardTab.classList.toggle("opened")
     infoCardTab.classList.toggle("opened")
     currencyCardTab.classList.toggle("opened")
     closeMenu.classList.toggle("opened")
+    flagDiv.classList.remove("hide")
+    
     
 
 })
@@ -196,6 +250,8 @@ closeMenu.addEventListener("click", () => {
     infoCardTab.classList.toggle("opened")
     currencyCardTab.classList.toggle("opened")
     closeMenu.classList.toggle("opened")
-
+    currencyContent.classList.remove("selected")
+    infoContent.classList.remove("selected");
+    flagDiv.classList.add("hide")
     
 })

@@ -214,29 +214,37 @@
     <div id="menu" class="menu">
       <p id="menuText">Menu</p>
       <div id="infoCardTabs">
-        <img src="./libs/images/Info white.png" id="currencyTab" />
+        <img src="./libs/images/Info white.png" id="infoCardTab" />
       </div>
       <div id="currencyCardTabs">
         <img src="./libs/images/currency.png" id="currencyTab" />
       </div>
+      <div id="weatherCardTabs">
+        <img src="./libs/images/Cloud sun.png" id="weatherTab" />
+      </div>
       <div id="infoCards">
         <div id="infoCardHeader" class="infocards">
           <div id="infoCardCountryName">
-            <h3 id="countryName">England</h3>
+            <h3 id="countryName"></h3>
           </div>
-          <div id="flagDiv">
+          <div id="flagDiv" class="hide">
             <img id="flag" src="" />
           </div>
         </div>
         <div id="infoCardBody">
           <div id="mainBody">
             <div id="mainContent">
-              <p id="capitalCity"></p>
+              <p id="capitalCity">
+                Please Select a country from the dropdown menu
+              </p>
               <p id="population"></p>
               <p id="languages"></p>
             </div>
             <div id="currencyContent">
               <p id="currency"></p>
+            </div>
+            <div id="weatherContent">
+              <p id="weather"></p>
             </div>
           </div>
         </div>

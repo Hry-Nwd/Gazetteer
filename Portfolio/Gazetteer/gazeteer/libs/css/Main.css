@@ -232,19 +232,55 @@ nav {
   opacity: 0%;
 }
 #countryName.opened {
+  width: fit-content;
   color: whitesmoke;
   font-size: 30px;
   opacity: 100%;
+  margin-bottom: 15px auto;
 }
-
-#mainContent {
+#mainBody {
   z-index: 1;
+  font-size: 25px;
   color: whitesmoke;
-  font-size: 30px;
   font-family: "Raleway", sans-serif;
   letter-spacing: 1.5px;
   text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.5);
   margin: auto;
+  text-align: center;
+  justify-content: center;
+}
+#mainContent {
+  left: -300px;
+  opacity: 0;
+}
+
+#currencyContent {
+  font-size: 25px;
+  position: relative;
+  left: 300px;
+  opacity: 0;
+}
+#weatherContent {
+  width: 100%;
+  left: 400px;
+  position: relative;
+  opacity: 0;
+  text-align: center;
+}
+
+#mainContent.selected {
+  left: 0;
+  opacity: 1;
+  transition: left 0.6s ease-out, opacity 0.6s ease-out 0.6s;
+}
+
+#currencyContent.selected,
+#weatherContent.selected {
+  left: 0px;
+  top: 100px;
+  position: absolute;
+  opacity: 1;
+  transition: left 0.6s ease-out, opacity 0.6s ease-out 0.6s;
   text-align: center;
 }
 
@@ -266,6 +302,7 @@ nav {
   justify-content: center;
   width: 65%;
   float: left;
+  margin: 5px;
   text-align: center;
 }
 
@@ -280,12 +317,14 @@ nav {
   margin: 0px;
 }
 #flagDiv {
-  display: flex;
   float: right;
   justify-content: center;
   width: 35%;
+  top: 15px;
+  position: relative;
 }
 
+#flagDiv.hide,
 #info.hide {
   display: none;
 }
@@ -319,7 +358,8 @@ nav {
 }
 
 #currencyCardTabs,
-#infoCardTabs {
+#infoCardTabs,
+#weatherCardTabs {
   display: inline-flex;
   justify-content: center;
   height: 45px;
@@ -335,9 +375,29 @@ nav {
 #infoCardTabs {
   top: 70px;
 }
+#infoCardTab {
+  transform: scale(0.8);
+  transition: all 1s ease;
+}
+#infoCardTab:hover {
+  transform: scale(0.85);
+  transition: all 1s ease;
+}
+#weatherCardTabs {
+  top: 180px;
+}
+#weatherTab {
+  transform: scale(0.8);
+  transition: all 1s ease;
+}
 
+#weatherTab:hover {
+  transform: scale(0.85);
+  transition: all 1s ease;
+}
 #currencyCardTabs.opened,
-#infoCardTabs.opened {
+#infoCardTabs.opened,
+#weatherCardTabs.opened {
   opacity: 1;
   transition: opacity 0.4s ease;
 }
@@ -348,7 +408,7 @@ nav {
 }
 
 #currencyTab:hover {
-  transform: scale(0.7);
+  transform: scale(0.65);
   transition: all 1s ease;
 }
 
