@@ -79,7 +79,7 @@ var border = {}
 function weatherApi(city, country){
         
     $.ajax({
-        url: `libs/php/restCountries.php`,
+        url: `libs/php/openWeather.php`,
         type: "POST",
         dataType: 'json',
         data:{
@@ -88,7 +88,22 @@ function weatherApi(city, country){
         },
         success: function(result){
 
-            console.log(result)
+            console.log(result.data)
+
+            const kelvinToCelc = (kelvin) => {
+                const celc = Math.floor(kelvin - 273.15 ) 
+                return celc
+            }
+            
+            const mphConverter = (windspeed) => {
+                const mph = Math.floor(windspeed * 2.23694)
+                return mph
+            }
+            const weather = result.data.weather[0].description;
+            const mph = mphConverter(result.data.wind.speed)
+            const celc = kelvinToCelc(result.data.main.temp)
+
+            $("#weather").html(`The current tempurature in ${city} is ${celc}°C with ${weather} and wind speeds of ${mph} miles per hour`)
             
         }
     })
@@ -118,7 +133,7 @@ function restApi (code) {
 
             console.log(result.data)
 
-            $("#capitalCity").html(`${Capital} is the capital of ${countryName}`);
+            $("#capitalCity").html(`${capital} is the capital of ${countryName}`);
             $("#languages").html(`${languages} is the main language spoken`)
             $("#population").html(`${countryName} has a population of ${population} people`)
             $("#currency").html(`${countryName} uses the ${currency} as its main currency`)
@@ -141,14 +156,24 @@ function getCountryInfo() {
                 if(datum.name === selectedCountry){
         
                     restApi(datum.code)
-                    
                     $('#flag').attr("src", `https://www.countryflags.io/${datum.code}/shiny/64.png`)
                     $('#countryName').html(`${datum.name}`)
                     
                     if (map.hasLayer(border)) {
                         map.removeLayer(border);
                     }
-                    border = L.geoJSON(datum).addTo(map);  
+                    console.log(datum.geoType)
+                    console.log(datum.coords)
+
+                    border = {
+                     "type": datum.geoType,
+                     "coordinates": datum.coords
+                    }
+                    
+                    console.log(border)
+                    
+                    L.geoJSON(border).addTo(map);
+                    
         
                     map.fitBounds(border.getBounds());
                     
@@ -247,11 +272,15 @@ closeMenu.addEventListener("click", () => {
     menuText.classList.toggle("hide")
     infoCardHeader.classList.toggle("opened")
     countryName.classList.toggle('opened');
+    
+    weatherCardTab.classList.toggle("opened")
     infoCardTab.classList.toggle("opened")
     currencyCardTab.classList.toggle("opened")
+
     closeMenu.classList.toggle("opened")
     currencyContent.classList.remove("selected")
     infoContent.classList.remove("selected");
+    weatherContent.classList.remove("selected")
     flagDiv.classList.add("hide")
     
 })

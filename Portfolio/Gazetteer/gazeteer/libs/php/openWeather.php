@@ -3,7 +3,7 @@
 	$executionStartTime = microtime(true) / 1000;
     
     
-	$url= 'http://api.openweathermap.org/data/2.5/weather?q=' . $_REQUEST['city'] . '.' . $_REQUEST['country'] . '&APPID=6777f552071d95a1f815158fd79b155a';
+	$url= 'http://api.openweathermap.org/data/2.5/weather?q=' . $_REQUEST['city'] . ',' . $_REQUEST['country'] . '&APPID=6777f552071d95a1f815158fd79b155a';
 		
 
 	$ch = curl_init();
