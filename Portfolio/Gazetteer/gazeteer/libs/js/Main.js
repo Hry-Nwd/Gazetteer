@@ -146,6 +146,7 @@ function restApi (code) {
             $("#languages").html(`${languages} is the main language spoken`)
             $("#population").html(`${countryName} has a population of ${population} people`)
             $("#currency").html(`${countryName} uses the ${currency} as its main currency`)
+            
             if(countryName === "Canada"){
                 map.flyTo(latlng, 3)
             } else {
@@ -178,7 +179,6 @@ function getCountryInfo() {
                      "type": datum.geoType,
                      "coordinates": datum.coords
                     }
-                    
                     
                     
                     layer = L.geoJSON(border).addTo(map);

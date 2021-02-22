@@ -2,17 +2,15 @@
 
     $executionStartTime = microtime(true);
 
-    $countryData = json_decode(file_get_contents("countryBorders.geo.json"), true, );
+    $countryData = json_decode(file_get_contents("countryBorders.geo.json"), true);
 
     $country = [];
 
     foreach ($countryData['features'] as $feature) {
 
         $temp = null;
-        $temp['coords'] = $feature["geometry"]['coordinates'];
-        $temp['geoType'] = $feature["geometry"]['type'];
-        $temp['name'] = $feature["properties"]['name'];
         $temp['code'] = $feature["properties"]['iso_a2'];
+        $temp['name'] = $feature["properties"]['name'];
 
         array_push($country, $temp);
         

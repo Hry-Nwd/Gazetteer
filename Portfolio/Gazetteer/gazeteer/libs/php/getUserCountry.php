@@ -3,7 +3,7 @@
 	$executionStartTime = microtime(true) / 1000;
     
     
-	$url= 'https://restcountries.eu/rest/v2/alpha/' . $_REQUEST['code'];
+	$url='http://api.geonames.org/countryCode?lat=' . $_REQUEST['lat'] . '&lng=' . $_REQUEST['lng'] . '&username=hryinwd&type=JSON';
 		
 
 	$ch = curl_init();
@@ -17,7 +17,7 @@
 	$output['status']['code'] = "200";
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "successful request";
-	$output['data'] = $decode;
+	$output['data'] = $decode['countryCode'];
 	
 	header('Content-Type: application/json; charset=UTF-8');
 
