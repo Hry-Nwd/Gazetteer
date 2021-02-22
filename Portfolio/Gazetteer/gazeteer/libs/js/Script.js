@@ -3,30 +3,33 @@
 let userLat = "" 
 let userLng = ""
 let selectedCountry = ""
+let selectedCountryCode = ""
 let border = {}
 //* --- DOM ---
 const countrySelect = $('#country-sel');
 
-const menu = document.querySelector(".menu")
-const menuText = document.querySelector("#menuText")
-const closeMenu = document.querySelector("#closeLine");
+const flag = $('#flag');
 
-const infoCardHeader = document.querySelector("#infoCardHeader");
-const countryName = document.querySelector("#countryName");
-const flagDiv = document.querySelector("#flagDiv");
+const menu = $(".menu")
+const menuText = $("#menuText")
+const closeMenu = $("#closeLine");
 
-const infoCardTab = document.querySelector("#infoCardTabs");
-const currencyCardTab = document.querySelector("#currencyCardTabs");
-const weatherCardTab = document.querySelector("#weatherCardTabs");
+const infoCardHeader = $("#infoCardHeader");
+const countryName = $("#countryName");
+const flagDiv = $("#flagDiv");
 
-const infoContent = document.querySelector("#mainContent");
-const currencyContent = document.querySelector("#currencyContent");
-const weatherContent = document.querySelector("#weatherContent");
+const infoCardTab = $("#infoCardTabs");
+const currencyCardTab = $("#currencyCardTabs");
+const weatherCardTab = $("#weatherCardTabs");
 
-const hamburger = document.querySelector(".hamburger");
-const navLinks = document.querySelector(".nav-links");
-const links = document.querySelector(".nav-links li");
-const line = document.querySelector(".line")
+const infoContent = $("#mainContent");
+const currencyContent = $("#currencyContent");
+const weatherContent = $("#weatherContent");
+
+const hamburger = $(".hamburger");
+const navLinks = $(".nav-links");
+const links = $(".nav-links li");
+const line = $(".line")
 
 //! ------ Leaflet.js Setup ------
   //* --- Base layers ---   
@@ -69,7 +72,7 @@ L.control.layers(baseMaps, null, {position: 'bottomright'} ).addTo(map)
 //! ------ Functions ------
 const getInfo = (code) => {
     $.ajax({
-        url: "libs/php/getCountryBorder.php",
+        url: "libs/php/getInfo.php",
         type: "POST",
         dataType: 'json',
         data: {
@@ -78,18 +81,23 @@ const getInfo = (code) => {
 
         success: function(result){
 
-            console.log(result.border)
             if (map.hasLayer(border)) {
                 map.removeLayer(border);
             }
         
-            border = L.geoJson(result.border,{
+            border = L.geoJson(result.data.border,{
                 color: '#FF0000',
                 weight: 2,
                 opacity: 0.65
             }).addTo(map);         
         
             map.fitBounds(border.getBounds());
+
+            selectedCountry = result.data.border.properties.name
+            selectedCountryCode = result.data.border.properties.iso_a2
+
+            flag.attr("src", `https://www.countryflags.io/${selectedCountryCode}/flat/64.png`)
+            countryName.html(`${selectedCountry}`)
         
         } 
     })
@@ -101,60 +109,11 @@ countrySelect.on('change', () => {
     getInfo(countrySelect.val())
 })
 
-weatherCardTab.addEventListener("click", () => {
-    currencyContent.classList.remove("selected");
-    weatherContent.classList.add("selected");
-    infoContent.classList.remove("selected");
+menuText.on('click', () => {
+    menu.addClass('opened');
+    countryName.removeClass('hide');
 })
-
-
-currencyCardTab.addEventListener("click", () => {
-    currencyContent.classList.add("selected")
-    infoContent.classList.remove("selected");
-    weatherContent.classList.remove("selected");
-})
-
-infoCardTab.addEventListener("click", () => {
-    currencyContent.classList.remove("selected")
-    infoContent.classList.add("selected");
-    weatherContent.classList.remove("selected");
-})
-
-menuText.addEventListener("click", () => {
-    infoContent.classList.add("selected");
-    menuText.classList.toggle("hide")
-    menu.classList.toggle("opened")
-    infoCardHeader.classList.toggle("opened")
-    countryName.classList.toggle('opened');
-
-    weatherCardTab.classList.toggle("opened")
-    infoCardTab.classList.toggle("opened")
-    currencyCardTab.classList.toggle("opened")
-    closeMenu.classList.toggle("opened")
-    flagDiv.classList.remove("hide")
-    
-    
-
-})
-closeMenu.addEventListener("click", () => {
-    menu.classList.toggle("opened");
-    menuText.classList.toggle("hide")
-    infoCardHeader.classList.toggle("opened")
-    countryName.classList.toggle('opened');
-    
-    weatherCardTab.classList.toggle("opened")
-    infoCardTab.classList.toggle("opened")
-    currencyCardTab.classList.toggle("opened")
-
-    closeMenu.classList.toggle("opened")
-    currencyContent.classList.remove("selected")
-    infoContent.classList.remove("selected");
-    weatherContent.classList.remove("selected")
-    flagDiv.classList.add("hide")
-    
-})
-
-hamburger.addEventListener("click", () => {
+hamburger.on("click", () => {
     navLinks.classList.toggle("open")
     line.classList.toggle("x")
 })
@@ -191,7 +150,6 @@ $(document).ready(function(){
                     lng: userLng
                 },
                 success : function(result){
-                    console.log(result.data)
                     getInfo(result.data)
                    countrySelect.children(`option[value='${result.data}']`).prop('selected', true);
                 }
