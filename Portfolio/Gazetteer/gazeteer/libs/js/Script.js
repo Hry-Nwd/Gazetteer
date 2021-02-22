@@ -7,6 +7,27 @@ let border = {}
 //* --- DOM ---
 const countrySelect = $('#country-sel');
 
+const menu = document.querySelector(".menu")
+const menuText = document.querySelector("#menuText")
+const closeMenu = document.querySelector("#closeLine");
+
+const infoCardHeader = document.querySelector("#infoCardHeader");
+const countryName = document.querySelector("#countryName");
+const flagDiv = document.querySelector("#flagDiv");
+
+const infoCardTab = document.querySelector("#infoCardTabs");
+const currencyCardTab = document.querySelector("#currencyCardTabs");
+const weatherCardTab = document.querySelector("#weatherCardTabs");
+
+const infoContent = document.querySelector("#mainContent");
+const currencyContent = document.querySelector("#currencyContent");
+const weatherContent = document.querySelector("#weatherContent");
+
+const hamburger = document.querySelector(".hamburger");
+const navLinks = document.querySelector(".nav-links");
+const links = document.querySelector(".nav-links li");
+const line = document.querySelector(".line")
+
 //! ------ Leaflet.js Setup ------
   //* --- Base layers ---   
 const WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
@@ -46,7 +67,7 @@ const map = L.map('map', {
 L.control.layers(baseMaps, null, {position: 'bottomright'} ).addTo(map)
 
 //! ------ Functions ------
-const getCountryBorder = (code) => {
+const getInfo = (code) => {
     $.ajax({
         url: "libs/php/getCountryBorder.php",
         type: "POST",
@@ -57,12 +78,12 @@ const getCountryBorder = (code) => {
 
         success: function(result){
 
-            console.log(result.data)
+            console.log(result.border)
             if (map.hasLayer(border)) {
                 map.removeLayer(border);
             }
         
-            border = L.geoJson(result.data,{
+            border = L.geoJson(result.border,{
                 color: '#FF0000',
                 weight: 2,
                 opacity: 0.65
@@ -77,7 +98,65 @@ const getCountryBorder = (code) => {
 
 //!  ------ Event Listeners ------
 countrySelect.on('change', () => {
-    getCountryBorder(countrySelect.val())
+    getInfo(countrySelect.val())
+})
+
+weatherCardTab.addEventListener("click", () => {
+    currencyContent.classList.remove("selected");
+    weatherContent.classList.add("selected");
+    infoContent.classList.remove("selected");
+})
+
+
+currencyCardTab.addEventListener("click", () => {
+    currencyContent.classList.add("selected")
+    infoContent.classList.remove("selected");
+    weatherContent.classList.remove("selected");
+})
+
+infoCardTab.addEventListener("click", () => {
+    currencyContent.classList.remove("selected")
+    infoContent.classList.add("selected");
+    weatherContent.classList.remove("selected");
+})
+
+menuText.addEventListener("click", () => {
+    infoContent.classList.add("selected");
+    menuText.classList.toggle("hide")
+    menu.classList.toggle("opened")
+    infoCardHeader.classList.toggle("opened")
+    countryName.classList.toggle('opened');
+
+    weatherCardTab.classList.toggle("opened")
+    infoCardTab.classList.toggle("opened")
+    currencyCardTab.classList.toggle("opened")
+    closeMenu.classList.toggle("opened")
+    flagDiv.classList.remove("hide")
+    
+    
+
+})
+closeMenu.addEventListener("click", () => {
+    menu.classList.toggle("opened");
+    menuText.classList.toggle("hide")
+    infoCardHeader.classList.toggle("opened")
+    countryName.classList.toggle('opened');
+    
+    weatherCardTab.classList.toggle("opened")
+    infoCardTab.classList.toggle("opened")
+    currencyCardTab.classList.toggle("opened")
+
+    closeMenu.classList.toggle("opened")
+    currencyContent.classList.remove("selected")
+    infoContent.classList.remove("selected");
+    weatherContent.classList.remove("selected")
+    flagDiv.classList.add("hide")
+    
+})
+
+hamburger.addEventListener("click", () => {
+    navLinks.classList.toggle("open")
+    line.classList.toggle("x")
 })
 
 //! ------ Document Ready ------
@@ -113,7 +192,7 @@ $(document).ready(function(){
                 },
                 success : function(result){
                     console.log(result.data)
-                    getCountryBorder(result.data)
+                    getInfo(result.data)
                    countrySelect.children(`option[value='${result.data}']`).prop('selected', true);
                 }
             })
