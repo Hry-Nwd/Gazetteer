@@ -74,7 +74,7 @@ map.on('locationfound', onLocationFound)
 map.on('locationerror', onLocationError)
 map.locate({setView: true, maxZoom: 10});
 
-var border = {}
+let layer = {}
 
 function weatherApi(city, country){
         
@@ -121,7 +121,15 @@ function restApi (code) {
 
         success: function(result){
             
-            const countryName = result.data.name
+        
+            
+            
+            let countryName = result.data.name;
+            if (countryName.length >= 20 ){
+                countryName = result.data.nativeName
+            }else {
+                 countryName = result.data.name
+            }
             const capital = result.data.capital
             const languages = result.data.languages[0].name;
             const population = result.data.population;
@@ -134,6 +142,7 @@ function restApi (code) {
             console.log(result.data)
 
             $("#capitalCity").html(`${capital} is the capital of ${countryName}`);
+            
             $("#languages").html(`${languages} is the main language spoken`)
             $("#population").html(`${countryName} has a population of ${population} people`)
             $("#currency").html(`${countryName} uses the ${currency} as its main currency`)
@@ -159,27 +168,28 @@ function getCountryInfo() {
                     $('#flag').attr("src", `https://www.countryflags.io/${datum.code}/shiny/64.png`)
                     $('#countryName').html(`${datum.name}`)
                     
-                    if (map.hasLayer(border)) {
-                        map.removeLayer(border);
+                    if (map.hasLayer(layer)) {
+                        map.removeLayer(layer);
                     }
                     console.log(datum.geoType)
                     console.log(datum.coords)
 
-                    border = {
+                   let border = {
                      "type": datum.geoType,
                      "coordinates": datum.coords
                     }
                     
-                    console.log(border)
                     
-                    L.geoJSON(border).addTo(map);
                     
-        
-                    map.fitBounds(border.getBounds());
+                    layer = L.geoJSON(border).addTo(map);
+                    
+                   layer.addData(border);
+                    
+                    
                     
                 }    
             })
-            return countryInfo
+            
         },
         error: function(jqXHR, textStatus, errorThrown) {
             // your error code
