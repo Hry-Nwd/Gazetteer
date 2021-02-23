@@ -8,28 +8,6 @@ let border = {}
 //* --- DOM ---
 const countrySelect = $('#country-sel');
 
-const flag = $('#flag');
-
-const menu = $(".menu")
-const menuText = $("#menuText")
-const closeMenu = $("#closeLine");
-
-const infoCardHeader = $("#infoCardHeader");
-const countryName = $("#countryName");
-const flagDiv = $("#flagDiv");
-
-const infoCardTab = $("#infoCardTabs");
-const currencyCardTab = $("#currencyCardTabs");
-const weatherCardTab = $("#weatherCardTabs");
-
-const infoContent = $("#mainContent");
-const currencyContent = $("#currencyContent");
-const weatherContent = $("#weatherContent");
-
-const hamburger = $(".hamburger");
-const navLinks = $(".nav-links");
-const links = $(".nav-links li");
-const line = $(".line")
 
 //! ------ Leaflet.js Setup ------
   //* --- Base layers ---   
