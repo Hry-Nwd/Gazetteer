@@ -87,15 +87,6 @@ countrySelect.on('change', () => {
     getInfo(countrySelect.val())
 })
 
-menuText.on('click', () => {
-    menu.addClass('opened');
-    countryName.removeClass('hide');
-})
-hamburger.on("click", () => {
-    navLinks.classList.toggle("open")
-    line.classList.toggle("x")
-})
-
 //! ------ Document Ready ------
 $(document).ready(function(){
     
