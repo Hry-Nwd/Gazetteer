@@ -2,11 +2,14 @@
 //* --- Globals ---
 let userLat = "" 
 let userLng = ""
+let userCountry = ""
 let selectedCountry = ""
 let selectedCountryCode = ""
 let border = {}
 //* --- DOM ---
 const countrySelect = $('#country-sel');
+const close = $('#close')
+const menu = $('#menuBtn')
 
 
 //! ------ Leaflet.js Setup ------
@@ -75,7 +78,7 @@ const getInfo = (code) => {
             selectedCountryCode = result.data.border.properties.iso_a2
 
             flag.attr("src", `https://www.countryflags.io/${selectedCountryCode}/flat/64.png`)
-            countryName.html(`${selectedCountry}`)
+            $('countryName').html(`${selectedCountry}`)
         
         } 
     })
@@ -85,6 +88,16 @@ const getInfo = (code) => {
 //!  ------ Event Listeners ------
 countrySelect.on('change', () => {
     getInfo(countrySelect.val())
+})
+
+close.on('click', () => {
+    $('#infocard').addClass('close')
+    menu.removeClass('close')
+})
+
+menu.on('click', () => {
+    $('#infocard').removeClass('close')
+    menu.addClass('close')
 })
 
 //! ------ Document Ready ------
@@ -121,6 +134,8 @@ $(document).ready(function(){
                 success : function(result){
                     getInfo(result.data)
                    countrySelect.children(`option[value='${result.data}']`).prop('selected', true);
+                   userCountry = result.data
+
                 }
             })
             

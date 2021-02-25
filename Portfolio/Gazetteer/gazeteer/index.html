@@ -23,17 +23,128 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#" id="gazeteer">Gazeteer</a>
+          <a class="navbar-brand" href="#" id="gazeteer"><img id="gazeteer" src="./libs/images/Logo no black surround.png"></a>
           <div class="row">
             <select id="country-sel" name="country" class="col-sm"></select>
           </div>
-          
         </ul>
       </div>
       </nav>
     </header>
     <div id="map"></div>
-    <footer>
+    <div class="container close" id="infocard">
+      <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
+        <div>
+          <div class="row infocardHeader">
+            <h1 class="col-8">United States</h1>
+            <img
+              class="col-4"
+              src="https://www.countryflags.io/be/flat/64.png"
+              alt=""
+              id="flag"
+            />
+            <div class="row">
+              <div class="col-md-12" id="headerBreak">
+              </div>
+            </div>
+          </div>
+          
+          <ol class="carousel-indicators">
+            <li data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></li>
+            <li data-bs-target="#myCarousel" data-bs-slide-to="1" class="" aria-label="Slide 2"></li>
+            <li data-bs-target="#myCarousel" data-bs-slide-to="2" class="" aria-label="Slide 3"></li>
+            <li data-bs-target="#myCarousel" data-bs-slide-to="3" class="" aria-label="Slide 4"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="container infocardBodyDiv">
+                <div class="infocardBody row">
+                  <div class="row">
+                    <h3 class="col-md-9 cardTitle">Card Title</h3>
+                  </div>
+                  <div class="row cardTextDiv">
+                    <p class="col cardText">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius
+                      aspernatur voluptatibus eligendi asperiores aliquam quia dolore
+                      consequatur quisquam tenetur optio amet quibusdam, soluta, nisi
+                      voluptates enim totam minus maiores ab.
+                    </div>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="container infocardBodyDiv">
+                <div class="infocardBody row">
+                  <div class="row">
+                    <h3 class="col-md-9 cardTitle">Card Title</h3>
+                  </div>
+                  <div class="row cardTextDiv">
+                    <p class="col cardText">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius
+                      aspernatur voluptatibus eligendi asperiores aliquam quia dolore
+                      consequatur quisquam tenetur optio amet quibusdam, soluta, nisi
+                      voluptates enim totam minus maiores ab.
+                    </div>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="false">
+              <div class="container infocardBodyDiv">
+                <div class="infocardBody row">
+                  <div class="row">
+                    <h3 class="col-md-9 cardTitle">Card Title</h3>
+                  </div>
+                  <div class="row cardTextDiv">
+                    <p class="col cardText">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius
+                      aspernatur voluptatibus eligendi asperiores aliquam quia dolore
+                      consequatur quisquam tenetur optio amet quibusdam, soluta, nisi
+                      voluptates enim totam minus maiores ab.
+                    </div>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="container infocardBodyDiv">
+                <div class="infocardBody row">
+                  <div class="row">
+                    <h3 class="col-md-9 cardTitle">Card Title</h3>
+                  </div>
+                  <div class="row cardTextDiv">
+                    <p class="col cardText">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius
+                      aspernatur voluptatibus eligendi asperiores aliquam quia dolore
+                      consequatur quisquam tenetur optio amet quibusdam, soluta, nisi
+                      voluptates enim totam minus maiores ab.
+                    </div>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel"  data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel"  data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+        <button type="button" class="btn-close btn-close-white" aria-label="Close" id="close"></button>
+      </div>
+    </div>
+    <div id="menuDiv">
+      <button class="btn btn-secondary" id="menuBtn">Menu</button>
+    </div>
+    
+  
+    </div>
+      <footer>
       <!-- jQuery Script-->
       <script src="libs/vendors/jQuery/jquery-3.5.1.min.js"></script>
       <!-- Popper Script-->
