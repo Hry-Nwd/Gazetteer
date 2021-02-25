@@ -31,12 +31,17 @@ body,
   border-radius: 3%;
   justify-content: center;
 }
+#countryName {
+  text-align: center;
+}
 #flag {
   max-width: 120px;
   max-height: auto;
-  top: -5px;
+  position: relative;
+  left: -5px;
 }
 .infocardHeader {
+  justify-content: center;
   color: whitesmoke;
   text-indent: 3%;
   height: 75px;
@@ -51,7 +56,6 @@ body,
   position: relative;
   margin: auto;
   margin-bottom: 10px;
-  left: 3%;
 }
 
 .carousel-control-next,
@@ -69,19 +73,28 @@ body,
   width: 80%;
   margin: 0 auto;
 }
-.cardTextDiv {
-  position: relative;
-  top: 40px;
-  height: 100%;
-  max-height: 40vh;
-  overflow: scroll;
-  scrollbar-width: none;
+
+@media screen and (max-width: 320px) {
+  .cardTextDiv {
+    max-height: 13rem;
+  }
 }
-.cardTextDiv::-webkit-scrollbar {
-  display: none;
+@media screen and (min-width: 1025px) {
+  .cardTextDiv {
+    overflow: hidden;
+    scrollbar-width: none;
+  }
+
+  .cardTextDiv::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.cardTextDiv {
+  height: 100%;
+  overflow: scroll;
 }
 .cardTitle {
-  position: absolute;
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -94,11 +107,9 @@ body,
 }
 
 .container {
-  position: absolute;
   justify-content: center;
   left: 0;
   right: 0;
-  padding-bottom: 50px;
 }
 .carousel-indicators {
 }
@@ -108,7 +119,7 @@ body,
 
 #close {
   position: absolute;
-  bottom: 5vh;
+  bottom: 6%;
   left: 0;
   right: 0;
   margin: 0 auto;

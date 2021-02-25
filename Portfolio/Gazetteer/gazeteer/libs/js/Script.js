@@ -8,6 +8,7 @@ let selectedCountryCode = ""
 let border = {}
 //* --- DOM ---
 const countrySelect = $('#country-sel');
+
 const close = $('#close')
 const menu = $('#menuBtn')
 
@@ -52,6 +53,7 @@ L.control.layers(baseMaps, null, {position: 'bottomright'} ).addTo(map)
 
 //! ------ Functions ------
 const getInfo = (code) => {
+
     $.ajax({
         url: "libs/php/getInfo.php",
         type: "POST",
@@ -61,6 +63,8 @@ const getInfo = (code) => {
         },
 
         success: function(result){
+
+           
 
             if (map.hasLayer(border)) {
                 map.removeLayer(border);
@@ -76,10 +80,31 @@ const getInfo = (code) => {
 
             selectedCountry = result.data.border.properties.name
             selectedCountryCode = result.data.border.properties.iso_a2
+            
+            //* Setting flag and infocard title
+            $('#flag').attr("src", `https://www.countryflags.io/${selectedCountryCode}/flat/64.png`)
+            $('#countryName').html(`${selectedCountry}`)
 
-            flag.attr("src", `https://www.countryflags.io/${selectedCountryCode}/flat/64.png`)
-            $('countryName').html(`${selectedCountry}`)
-        
+            //*General information tab
+            let wikiLink = ""
+
+            $.ajax({
+                url: "libs/php/getWikiLink.php",
+                type: "POST",
+                data: {
+                    capital: result.data.info.capital,
+                    countryCode: code
+                },
+
+                success: function(result){
+                    wikiLink = result.data.link.geonames[0].wikipediaUrl
+                    console.log(wikiLink)
+                    $('#wikiBtn').attr('href', `https://${wikiLink}`)
+                    
+                }
+            })
+            $('#generalInfo').html(`${result.data.info.capital} is the capital of ${selectedCountry}.<br><br> ${result.data.info.languages[0].name} is the main spoken language by approximately ${result.data.info.population} people.<br><br> You can find out more over on wikipedia`);
+            
         } 
     })
 }
@@ -113,14 +138,12 @@ $(document).ready(function(){
             
             result.data.forEach(datum => {
                 countrySelect.append(`<option value="${datum.code}">${datum.name}</option>`);
-                
             } )
             
         }
     })
     
     navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position)
             userLat = position.coords.latitude;
             userLng = position.coords.longitude;
             $.ajax({
@@ -138,7 +161,5 @@ $(document).ready(function(){
 
                 }
             })
-            
           });
-    
 })

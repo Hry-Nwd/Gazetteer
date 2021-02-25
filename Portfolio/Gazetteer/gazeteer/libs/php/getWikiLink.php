@@ -5,26 +5,8 @@
 
     $executionStartTime = microtime(true);
 
-    // get country border feature
 
-    $countryBorders = json_decode(file_get_contents("countryBorders.geo.json"), true);
-
-    $border = null;
-
-    foreach ($countryBorders['features'] as $feature) {
-
-        if ($feature["properties"]["iso_a2"] ==  $_REQUEST['countryCode']) {
-
-            $border = $feature;
-            break;
-        
-        }
-        
-    }
-
-    // first API call
-
-    $url='https://restcountries.eu/rest/v2/alpha/' . $_REQUEST['countryCode'];
+    $url='http://api.geonames.org/wikipediaSearch?q=' . $_REQUEST['capital'] . ',' . $_REQUEST['countryCode'] . '&maxRows=10&username=hryinwd&type=JSON';
     
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -35,7 +17,7 @@
 
     curl_close($ch);
 
-    $info = json_decode($result,true);        
+    $link = json_decode($result,true);       
 
     //
 
@@ -44,8 +26,7 @@
     $output['status']['name'] = "ok";
     $output['status']['description'] = "success";
     $output['status']['executedIn'] = intval((microtime(true) - $executionStartTime) * 1000) . " ms";
-    $output['data']['border'] = $border;
-    $output['data']['info'] = $info;
+    $output['data']['link'] = $link;
 
     header('Content-Type: application/json; charset=UTF-8');
 
