@@ -205,7 +205,7 @@ const getInfo = (code) => {
                     
 
                      //*General information tab
-                    $('#generalInfo').html(`${selectedCountry.capital} is the capital of ${selectedCountry.name}.<br><br> ${selectedCountry.language} is the main spoken language by approximately ${selectedCountry.population} people.<br><br> You can find out more over on wikipedia`);
+                    $('#generalInfo').html(`${selectedCountry.capital} is the capital of ${selectedCountry.name}.<br><br> ${selectedCountry.language} is the main spoken language by approximately ${selectedCountry.population} people.<br><br> You can find out more over on Wikipedia`);
 
                     //* Sets Weather Tab Info
                     selectedCountry.weather.description = result.data.weather.current.weather[0].description;
