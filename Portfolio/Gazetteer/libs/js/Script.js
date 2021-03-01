@@ -22,6 +22,11 @@ let selectedCountry = {
         "code": "",
         "symbol": ""
     },
+    "cities": {
+    },
+    "randomCity": {
+
+    },
     "border": {},
     "exchangeRate": "",
     "exchangeRateText": "",
@@ -94,9 +99,39 @@ const mphConverter = (windspeed) => {
     const mph = Math.floor(windspeed * 2.23694)
     return mph
 }
+const randomCityFunc = () => {
+    i = Math.floor(Math.random() * selectedCountry.cities.data.length)
+    console.log(selectedCountry.cities.data[i].name)
+    selectedCountry.randomCity.name = selectedCountry.cities.data[i].name
+    selectedCountry.randomCity.id = selectedCountry.cities.data[i].wikiDataId
+}
+const cityInfoText = () => {
 
+    randomCityFunc()
+    
+    console.log(selectedCountry)
+    console.log(selectedCountry.randomCity)
+
+    $.ajax({
+        url: "libs/php/getCityInfo.php",
+        type: "POST",
+        data: {
+            city: selectedCountry.randomCity.name,
+            country: selectedCountry.name,
+            cityId: selectedCountry.randomCity.id
+        },
+        
+        success: function(result) {
+            console.log(result.data)
+            let cityTime = result.data.time.datetime
+            
+            $('#cityText').html(`${result.data.city.data.city} is one of the countries largest cities with a population of ${result.data.city.data.population}. <br><br> ${result.data.city.data.city} which is located in ${result.data.city.data.region} which is a region of ${selectedCountry.name}.<br><br> The time in ${result.data.city.data.city} is <br>${cityTime}`)
+            map.flyTo([result.data.city.data.latitude, result.data.city.data.longitude], 10);
+            
+        }
+        })
+}
 //* --- Main Ajax Call ---
-
 const getInfo = (code) => {
 
     $.ajax({
@@ -143,6 +178,7 @@ const getInfo = (code) => {
             selectedCountry.currency.name = result.data.info.currencies[0].name;
             selectedCountry.capital = result.data.info.capital.replace(/\s+/g, "");
 
+            selectedCountry.avgPop = result.data.info.population / 100
             selectedCountry.population = result.data.info.population;
             selectedCountry.language = result.data.info.languages[0].name
 
@@ -154,6 +190,7 @@ const getInfo = (code) => {
                 url: "libs/php/getInfo.php",
                 type: "POST",
                 data: {
+                    pop: selectedCountry.avgPop,
                     capital: selectedCountry.capital,
                     countryCode: selectedCountry.code,
                     country: selectedCountry.name,
@@ -206,9 +243,21 @@ const getInfo = (code) => {
 
                    
                     //* Sets Covid Tab
-                  
-                    $('#covidText').html(`${selectedCountry.name} currently has ${result.data.covid[0].confirmed} overall cases with  ${result.data.covid[0].deaths} people sadly dead. ${selectedCountry.name} currently has ${result.data.covid.critical} patients in critical condition. However, more than ${result.data.covid.recovered} people have already recovered from the virus`)
-        
+                    
+                    $('#covidText').html(`${selectedCountry.name} currently has ${result.data.covid[0].confirmed} overall cases with  ${result.data.covid[0].deaths} people sadly dead.<br><br> ${selectedCountry.name} currently has ${result.data.covid[0].critical} patients in critical condition. However, more than ${result.data.covid[0].recovered} people have already recovered from the virus`)
+                    
+                    
+                    //*Sets cities tab
+                    
+                    selectedCountry.cities = result.data.cities
+                    if(result.data.cities.errors){
+                        $('#cityText').html(`Unfortunately no data on ${selectedCountry.name}'s cities can be retrieved at this time.`)
+                        $('#cityBtn').addClass("hide")
+                    } else {
+                        $('#cityBtn').removeClass("hide")
+                        $('#cityText').html(`${selectedCountry.name}'s top cities include ${result.data.cities.data[0].city}, ${result.data.cities.data[1].city} and ${result.data.cities.data[2].city}<br><br> Click the button below to find out more information about ${selectedCountry.name}'s top cities`)
+                    }
+
                     //* Currency tab info with error handling
                     if (!result.data.exchangeRate.error){
                         $('#ERcalc').removeClass('hide') 
@@ -218,6 +267,7 @@ const getInfo = (code) => {
                     } else {
                         $('#currencyInfo').html(`${selectedCountry.name} uses ${selectedCountry.currency.symbol}${selectedCountry.currency.code} (${selectedCountry.currency.name}).<br><br> Unfortunately there is no information available to work out the exchange rate.`)
                         $('#ERcalc').addClass('hide') 
+
                     }
                 },
             })
@@ -226,11 +276,16 @@ const getInfo = (code) => {
 }
 
 
+
 //!  ------ Event Listeners ------
 countrySelect.on('change', () => {
     $('#infocard').addClass('close')
     menu.removeClass('close')
     getInfo(countrySelect.val())
+    let cityInfoReset = () => {
+        $('#cityText').html('');
+    } 
+    cityInfoReset()
 })
 
 close.on('click', () => {
@@ -246,6 +301,10 @@ menu.on('click', () => {
 $('#ERinput').on('change', () => {
     let output = $('#ERinput').val() * selectedCountry.currency.exchangeRate
     $('#ERoutput').html(`${selectedCountry.currency.symbol} ${output.toFixed(2)}`)
+})
+
+$('#cityBtn').on('click' , () => {
+    cityInfoText()
 })
 
 //! ------ Document Ready ------

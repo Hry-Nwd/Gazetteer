@@ -68,6 +68,7 @@ body,
 .infocardBody {
   text-align: center;
   position: relative;
+  height: 16rem;
   top: 20px;
   justify-content: center;
   width: 80%;
@@ -94,6 +95,11 @@ body,
   height: 60vh;
   background: rgba(42, 42, 41, 0);
   color: white;
+}
+
+.container img {
+  width: auto;
+  height: 50px;
 }
 
 .day {
@@ -149,7 +155,7 @@ body,
   transition: opacity 0.4s ease;
 }
 
-#menuBtn.close {
+.btn.close {
   opacity: 0;
   transition: opacity 0.4s ease;
 }
