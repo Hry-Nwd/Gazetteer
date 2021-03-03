@@ -5,7 +5,7 @@
 
     $executionStartTime = microtime(true);
 
-    // information Api API 
+    // information Api
     $url= 'https://wft-geo-db.p.rapidapi.com/v1/geo/cities/' . $_REQUEST['cityId'];
     
     $ch = curl_init();

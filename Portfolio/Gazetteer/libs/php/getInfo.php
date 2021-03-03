@@ -83,6 +83,51 @@
 
     $cities = json_decode($result, true);
 
+    $url= 'https://newscatcher.p.rapidapi.com/v1/latest_headlines?lang=en&country=' . $_REQUEST['countryCode'] . '&media=True';
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_URL,$url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ["newscatcher.p.rapidapi.com",
+    "x-rapidapi-key: 3169065d6emshc588611e072ef87p1cfdf6jsn57aafb8fe822"]);
+
+    $result=curl_exec($ch);
+
+    curl_close($ch);
+
+    $news = json_decode($result, true);
+
+    $url= 'https://newscatcher.p.rapidapi.com/v1/latest_headlines?lang=en&country=' . $_REQUEST['countryCode'] . '&media=True';
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_URL,$url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ["x-rapidapi-host:  newscatcher.p.rapidapi.com",
+    "x-rapidapi-key: 3169065d6emshc588611e072ef87p1cfdf6jsn57aafb8fe822"]);
+
+    $result=curl_exec($ch);
+
+    curl_close($ch);
+
+    $news = json_decode($result, true);
+
+    $url= 'https://bing-image-search1.p.rapidapi.com/images/search?q=' . $_REQUEST['country'] . '%20landmarks';
+    
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_URL,$url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ["x-rapidapi-host: bing-image-search1.p.rapidapi.com",
+    "x-rapidapi-key: 3169065d6emshc588611e072ef87p1cfdf6jsn57aafb8fe822"]);
+
+    $result=curl_exec($ch);
+
+    curl_close($ch);
+
+    $images = json_decode($result, true);
+
     $output['status']['code'] = "200";
     $output['status']['name'] = "ok";
     $output['status']['description'] = "success";
@@ -92,8 +137,9 @@
     $output['data']['weather'] = $weather;
     $output['data']['covid'] = $covid;
     $output['data']['cities'] = $cities;
-
-    header('Content-Type: application/json; charset=UTF-8; x-rapidapi-host: covid-19-data.p.rapidapi.com; x-rapidapi-key: 3169065d6emshc588611e072ef87p1cfdf6jsn57aafb8fe822;');
+    $output['data']['news'] = $news;
+    $output['data']['images'] = $images;
+    header('Content-Type: application/json; charset=UTF-8;');
 
     echo json_encode($output);
 

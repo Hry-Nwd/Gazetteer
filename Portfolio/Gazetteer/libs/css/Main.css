@@ -19,71 +19,49 @@ body,
 #infocard {
   transform: scale(1);
   transition: all 0.6s ease;
+  max-width: 375px;
 }
 #myCarousel {
-  top: 10px;
-  max-width: 25rem;
-  height: 75vh;
-  max-height: 30rem;
   background: rgba(42, 42, 41, 0.863);
   color: white;
-  position: relative;
   border-radius: 3%;
-  justify-content: center;
+  margin-top: 20%;
 }
-#countryName {
-  text-align: center;
-}
-#flag {
-  max-width: 120px;
-  max-height: auto;
-  position: relative;
-  left: -5px;
-}
+
 .infocardHeader {
-  justify-content: center;
   color: whitesmoke;
-  text-indent: 3%;
-  height: 75px;
   align-items: center;
-  margin-top: 0px;
-  margin-bottom: 5px;
 }
 
 #headerBreak {
   background-color: #999;
   height: 1px;
-  position: relative;
-  margin: auto;
   margin-bottom: 10px;
 }
 
 .carousel-control-next,
 .carousel-control-prev {
   height: 20%;
-  top: 45%;
+  top: 85%;
   border: none;
   background-color: rgba(42, 42, 41, 0);
 }
-.infocardBody {
-  text-align: center;
-  position: relative;
-  height: 16rem;
-  top: 20px;
-  justify-content: center;
-  width: 80%;
-  margin: 0 auto;
+a {
+  text-decoration: none;
+}
+.card-img {
+  height: auto;
 }
 
+.infocardBodyDiv {
+  justify-content: center;
+  height: 23rem;
+}
 #ERcalc.hide {
   opacity: 0;
 }
 
 .cardTextDiv {
-  height: 100%;
-  margin: 5%;
-  overflow-y: auto;
-  justify-content: center;
 }
 .cardTitle {
   left: 0;
@@ -92,14 +70,29 @@ body,
 }
 .carousel-item,
 .carousel-item.active {
-  height: 60vh;
   background: rgba(42, 42, 41, 0);
   color: white;
 }
 
-.container img {
-  width: auto;
-  height: 50px;
+.icon {
+  width: 50px;
+  height: auto;
+}
+
+.imagesDiv {
+  height: 90%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.newsDiv {
+  height: 280px;
+  overflow-y: scroll;
+  opacity: 1;
+}
+
+.newsDiv.hidden {
+  opacity: 0;
 }
 
 .day {
@@ -115,26 +108,20 @@ body,
   height: 50px;
 }
 .iconSpan {
-  margin-top: 10%;
   justify-content: center;
-  padding: 0, 10%;
 }
 
 .container {
-  justify-content: center;
-  left: 0;
-  right: 0;
+  text-align: center;
 }
 
-.cardText {
-  justify-content: center;
-}
 .carousel-indicators.active {
   opacity: 1;
 }
 .weatherForcast {
   text-align: center;
   justify-content: center;
+  height: fit-content;
 }
 
 #close {
@@ -155,7 +142,7 @@ body,
   transition: opacity 0.4s ease;
 }
 
-.btn.close {
+#menuBtn.close {
   opacity: 0;
   transition: opacity 0.4s ease;
 }

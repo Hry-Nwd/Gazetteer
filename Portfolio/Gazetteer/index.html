@@ -14,6 +14,8 @@
       rel="stylesheet"
       href="libs/vendors/node_modules/leaflet/dist/leaflet.css"
     />
+    <link rel="stylesheet" href="libs/vendors/node_modules/leaflet.markercluster/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="libs/vendors/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css">
     <!-- Personal Style Sheets-->
     <link rel="stylesheet" href="./libs/css/Main.css" />
 
@@ -35,7 +37,7 @@
     <div class="container close" id="infocard">
       <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
         <div>
-          <div class="row infocardHeader">
+          <div class="row infocardHeader justify-content-center">
             <h1 class="col-8" id="countryName"></h1>
             <img
               class="col-4"
@@ -43,8 +45,7 @@
               alt=""
               id="flag"
             />
-            <div class="row">
-              <div class="col-md-12" id="headerBreak">
+              <div class="col-10" id="headerBreak">
               </div>
             </div>
           </div>
@@ -55,36 +56,33 @@
             <li data-bs-target="#myCarousel" data-bs-slide-to="2" class="" aria-label="Slide 3"></li>
             <li data-bs-target="#myCarousel" data-bs-slide-to="3" class="" aria-label="Slide 4"></li>
             <li data-bs-target="#myCarousel" data-bs-slide-to="4" class="" aria-label="Slide 5"></li>
+            <li data-bs-target="#myCarousel" data-bs-slide-to="5" class="" aria-label="Slide 6"></li>
+            <li data-bs-target="#myCarousel" data-bs-slide-to="6" class="" aria-label="Slide 7"></li>
           </ol>
           <div class="carousel-inner">
             <div class="carousel-item active">
               <div class="container infocardBodyDiv">
-                <div class="infocardBody row">
-                  <div class="row">
-                    <h3 class="col-12 cardTitle">General Information</h3>
-                    
-                  </div>
-                  <div class="row cardTextDiv">
+                <h3 class="col-12 cardTitle">General Information</h3>
+                <div class="infocardBody">
+                  <div class="row cardTextDiv justify-content-center">
                     <p class="col cardText" id="generalInfo">
                     </p>
-                    <a class="btn btn-secondary" id="wikiBtn" role="button" target="_blank">Find out More!</a>
+                    <a class="btn btn-secondary col-8" id="wikiBtn" role="button" target="_blank">Find out More!</a>
                   </div>
                 </div>
               </div>
             </div>
             <div class="carousel-item">
-              <div class="container infocardBodyDiv">
-                <div class="infocardBody row">
-                  <div class="row">
-                    <h3 class="col-12 cardTitle">Currency Information</h3>
-                  </div>
-                  <div class="row cardTextDiv">
-                    <p class="col cardText" id="currencyInfo">
+              <div class="container infocardBodyDiv ">
+                <h3 class="col-12 cardTitle">Currency Information</h3>
+                <div class="infocardBody">
+                  <div class="row cardTextDiv justify-content-center">
+                    <p class="col-12 cardText" id="currencyInfo">
                     </p>
-                    <div class="row" id="ERcalc">
+                    <div id="ERcalc">                    
                       <p class="col-12">Try our Exchange rate Calculator!</p>
-                      <input type="number" id="ERinput" class="col-12">
-                      <p id="ERoutput"></p>
+                      <p id="ERoutput" class="col-12"></p>
+                      <input type="number" id="ERinput" class="">
                     </div>
                   </div>
                 </div>
@@ -92,42 +90,40 @@
             </div>
             <div class="carousel-item" data-bs-interval="false">
               <div class="container infocardBodyDiv">
-                <div class="infocardBody row">
-                  <div class="row">
-                    <h3 class="col-12 cardTitle">Weather Information</h3>
-                  </div>
-                  <div class="row cardTextDiv">
+                <h3 class="col-12 cardTitle">Weather Information</h3>
+                <div class="infocardBody">
+                  <div class="col-1"></div>
+                  <div class="cardTextDiv">
                     <p class="col cardText" id="weatherInfo">
                     </p>
-                    <div class="row weatherForcast">
-                      <div class="col-4 cardText weatherForcast">
-                        <span class="row day" id="day1"></span>
-                        <span class="row temp" id="temp1"></span>
-                        <div class="row iconSpan" id="iconSpan1"><img class="icon"src="" id="icon1"></div>
+                    <div class="row weatherForcast justify-content-center">
+                      <div class="col-4 row cardText weatherForcast">
+                        <span class="col-12 day" id="day1"></span>
+                        <span class="col-12 temp" id="temp1"></span>
+                        <div class="col=12 iconSpan" id="iconSpan1"><img class="icon"src="" id="icon1"></div>
                       </div>
-                      <div class="col-4 cardText weatherForcast" >
-                        <span class="row day" id="day2"></span>
-                        <span class="row temp" id="temp2"></span>
-                        <div class="row iconSpan" id="iconSpan2"><img class="icon"src="" id="icon2"></div>
+                      <div class="col-4 row cardText weatherForcast" >
+                        <span class="col-12 day" id="day2"></span>
+                        <span class="col-12 temp" id="temp2"></span>
+                        <div class="col-12 iconSpan" id="iconSpan2"><img class="icon"src="" id="icon2"></div>
                       </div>
-                      <div class="col-4 cardText weatherForcast">
-                        <span class="row day" id="day3"></span>
-                        <span class="row temp" id="temp3"></span>
-                        <div class="row iconSpan" id="iconSpan3"><img class="icon"src="" id="icon3"></div>
+                      <div class="col-4 row cardText weatherForcast">
+                        <span class="col-12 day" id="day3"></span>
+                        <span class="col-12 temp" id="temp3"></span>
+                        <div class="col-12 iconSpan" id="iconSpan3"><img class="icon"src="" id="icon3"></div>
                       </div>
                     </div>
                   </div>
+                  <div class="col-1"></div>
                 </div>
               </div>
             </div>
             <div class="carousel-item">
               <div class="container infocardBodyDiv">
-                <div class="infocardBody row">
-                  <div class="row">
-                    <h3 class="col-12 cardTitle">Covid-19 Information</h3>
-                  </div>
-                  <div class="row cardTextDiv">
-                    <p class="col cardText" id="covidText">
+                <h3 class="col-12 cardTitle">Covid-19 Information</h3>
+                <div class="infocardBody">
+                  <div class="cardTextDiv">
+                    <p class="col-12 cardText" id="covidText">
                     </div>
                   </p>
                 </div>
@@ -135,16 +131,85 @@
             </div>
             <div class="carousel-item">
               <div class="container infocardBodyDiv">
-                <div class="infocardBody row">
-                  <div class="row">
-                    <h3 class="col-12 cardTitle">Major Cities</h3>
-                  </div>
-                  <div class="row cardTextDiv">
+                <h3 class="col-12 cardTitle">Major Cities</h3>
+                <div class="infocardBody">
+                  <div class="cardTextDiv">
                     <p class="col-12 cardText" id="cityText">
                     </p>
                     <p class="row col-12" id="cityInfoText"></p>
                     <button class="col-12 btn btn-secondary" id="cityBtn">Random City</button>
+                  
                     </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="container infocardBodyDiv">
+                <div class="imagesDiv">
+
+                  <h3 class="col-12">Top Images</h3>
+                  <div class="infocardBody row">
+                    <a id="imgLink1" href="">
+                      <div class="card bg-dark text-white mb-5">
+                        <img src="..." class="card-img" alt="..." id="img1" style="height: auto; width: 100%;">
+                        <div class="card-img-overlay">
+                          <p class="card-title" id="img1Title"></p>
+                        </div>
+                      </div>
+                    </a>
+                    <a id="imgLink2" href="">
+                      <div class="card bg-dark text-white mb-5">
+                        <img src="..." class="card-img" alt="..." id="img2" style="height: auto; width: 100%;">
+                        <div class="card-img-overlay">
+                          <p class="card-title" id="img2Title"></p>
+                        </div>
+                      </a>
+                    </div>
+                    <a id="imgLink3" href="">
+                      <div class="card bg-dark text-white mb-5">
+                        <img src="..." class="card-img" alt="..." id="img3" style="height: auto; width: 100%;">
+                        <div class="card-img-overlay">
+                          <p class="card-title" id="img3Title"></p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+              <div class="container infocardBodyDiv">
+                <h3 class="col-12" id="newsCardTitle">Recent News Stories</h3>
+                <div class=" infocardBody">
+                  <div class="newsDiv">
+                    <a id="newsLink1" href="" target="_blank">
+                      <div class="card bg-dark text-white mb-3">
+                        <img src="" class="card-img-top newsImg" alt="..." id="news1Img" style="height: auto; width: 100%;">
+                        <div class="card-body">
+                          <strong class="card-title" id="news1Title"></strong>
+                          <p class="card-text" id="news1Primary"></p>
+                        </div>
+                      </div>
+                    </a>
+                    <a id="news2Link" href="" target="_blank">
+                      <div class="card bg-dark text-white mb-3">
+                        <img src="" class="card-img-top newsImg" alt="..." id="news2Img" style="height: auto; width: 100%;">
+                        <div class="card-body">
+                          <strong class="card-title" id="news2Title"></strong>
+                          <p class="card-text" id="news2Primary"></p>   
+                        </div>
+                      </div>
+                    </a>
+                    <a id="news3Link" href="" target="_blank">
+                      <div class="card bg-dark text-white mb-3">
+                        <img src="" class="card-img-top newsImg" alt="..." id="news3Img" style="height: auto; width: 100%;">
+                        <div class="card-body">
+                          <strong class="card-title" id="news3Title"></strong>
+                          <p class="card-text" id="news3Primary"></p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -177,6 +242,7 @@
       <script src="libs/vendors/bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js"></script>
       <!-- Leaflet Script-->
       <script src="libs/vendors/node_modules/leaflet/dist/leaflet.js"></script>
+      <script src="libs/vendors/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
       <!-- Personal Scripts-->
       <script src="libs/js/Script.js"></script>
     </footer>

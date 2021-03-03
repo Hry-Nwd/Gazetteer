@@ -28,6 +28,10 @@ let selectedCountry = {
 
     },
     "border": {},
+    "markers" : {
+        "cityMarkers": {},
+        "poiMarkers": {}
+    },
     "exchangeRate": "",
     "exchangeRateText": "",
     "weather": {
@@ -46,6 +50,7 @@ let counter = 0
 const countrySelect = $('#country-sel');
 const close = $('#close')
 const menu = $('#menuBtn')
+const citySelect = $('#city-sel')
 //* --- Coverters ---
 
 
@@ -80,14 +85,18 @@ const baseMaps = {
 const map = L.map('map', {
     center: [39.73, -104.99],
     zoom: 10,
-    maxZoom: 10,
-    layers: [WorldStreetMap],
+    minZoom: 2,
+    layers: [WorldStreetMap, WorldImagery, WorldPhysical, NatGeoWorldMap],
     zoomControl : false
     });
 //* --- Controls --- 
 L.control.layers(baseMaps, null, {position: 'bottomright'} ).addTo(map)
 
 //! ------ Functions ------
+
+const onMapClick= (e) => { 
+    console.log(e.latlng)
+}
 
 //* ---Math Functions
 const kelvinToCelc = (kelvin) => {
@@ -105,32 +114,68 @@ const randomCityFunc = () => {
     selectedCountry.randomCity.name = selectedCountry.cities.data[i].name
     selectedCountry.randomCity.id = selectedCountry.cities.data[i].wikiDataId
 }
-const cityInfoText = () => {
+let cityInfoReset = () => {
+    $('#cityText').html('');
+} 
 
-    randomCityFunc()
+
+const cityInfoText = (cityId,city) => {
+
+    if(map.hasLayer(selectedCountry.markers)){
+        selectedCountry.markers.remove()
+    }
     
-    console.log(selectedCountry)
-    console.log(selectedCountry.randomCity)
+    
 
     $.ajax({
         url: "libs/php/getCityInfo.php",
         type: "POST",
         data: {
-            city: selectedCountry.randomCity.name,
+            city: city,
             country: selectedCountry.name,
-            cityId: selectedCountry.randomCity.id
+            cityId: cityId
         },
         
         success: function(result) {
-            console.log(result.data)
             let cityTime = result.data.time.datetime
+            let cityTimeMs = Date.parse(cityTime)
+            let cityTimeDate = new Date(cityTimeMs)
+            cityTime = cityTimeDate.toLocaleTimeString()
             
             $('#cityText').html(`${result.data.city.data.city} is one of the countries largest cities with a population of ${result.data.city.data.population}. <br><br> ${result.data.city.data.city} which is located in ${result.data.city.data.region} which is a region of ${selectedCountry.name}.<br><br> The time in ${result.data.city.data.city} is <br>${cityTime}`)
             map.flyTo([result.data.city.data.latitude, result.data.city.data.longitude], 10);
-            
+
+            $.ajax({
+                url: "libs/php/getNearbyPoi.php",
+                type: "POST",
+                data: {
+
+                    lat: result.data.city.data.latitude,
+                    lng: result.data.city.data.longitude,
+                    
+                },
+
+                success: function(result){
+                    
+
+                    result.data.poi.results.forEach( i => {
+                        console.log(i)
+                          selectedCountry.markers.addLayer( L.marker([i.location.lat, i.location.lng], {
+                                title: i.name,
+                                color: '#00FF00'
+                            }));
+                        })
+                     
+                    map.addLayer(selectedCountry.markers)
+
+                }
+            })
         }
-        })
+    })
+            
 }
+        
+
 //* --- Main Ajax Call ---
 const getInfo = (code) => {
 
@@ -178,10 +223,12 @@ const getInfo = (code) => {
             selectedCountry.currency.name = result.data.info.currencies[0].name;
             selectedCountry.capital = result.data.info.capital.replace(/\s+/g, "");
 
-            selectedCountry.avgPop = result.data.info.population / 100
+            selectedCountry.avgPop = result.data.info.population / 250
             selectedCountry.population = result.data.info.population;
             selectedCountry.language = result.data.info.languages[0].name
 
+            selectedCountry.nameNoSpace = selectedCountry.name.replace(/\s+/g, "%20")
+           
                         
             //* More Specific info ajax call
 
@@ -193,7 +240,7 @@ const getInfo = (code) => {
                     pop: selectedCountry.avgPop,
                     capital: selectedCountry.capital,
                     countryCode: selectedCountry.code,
-                    country: selectedCountry.name,
+                    country: selectedCountry.nameNoSpace,
                     lat: selectedCountry.lat,
                     lng: selectedCountry.lng,
                     userCurrency: user.currency.code,
@@ -202,10 +249,10 @@ const getInfo = (code) => {
 
                 success: function(result){
                  
-                    
+                   
 
                      //*General information tab
-                    $('#generalInfo').html(`${selectedCountry.capital} is the capital of ${selectedCountry.name}.<br><br> ${selectedCountry.language} is the main spoken language by approximately ${selectedCountry.population} people.<br><br> You can find out more over on Wikipedia`);
+                    $('#generalInfo').html(`${selectedCountry.capital} is the capital of ${selectedCountry.name}.<br><br> ${selectedCountry.language} is the main spoken language by approximately ${selectedCountry.population.toLocaleString()} people.<br><br> You can find out more over on Wikipedia`);
 
                     //* Sets Weather Tab Info
                     selectedCountry.weather.description = result.data.weather.current.weather[0].description;
@@ -244,7 +291,7 @@ const getInfo = (code) => {
                    
                     //* Sets Covid Tab
                     
-                    $('#covidText').html(`${selectedCountry.name} currently has ${result.data.covid[0].confirmed} overall cases with  ${result.data.covid[0].deaths} people sadly dead.<br><br> ${selectedCountry.name} currently has ${result.data.covid[0].critical} patients in critical condition. However, more than ${result.data.covid[0].recovered} people have already recovered from the virus`)
+                    $('#covidText').html(`${selectedCountry.name} currently has ${result.data.covid[0].confirmed.toLocaleString()} overall cases with  ${result.data.covid[0].deaths.toLocaleString()} people sadly dead.<br><br> ${selectedCountry.name} currently has ${result.data.covid[0].critical.toLocaleString()} patients in critical condition. However, more than ${result.data.covid[0].recovered.toLocaleString()} people have already recovered from the virus`)
                     
                     
                     //*Sets cities tab
@@ -255,9 +302,103 @@ const getInfo = (code) => {
                         $('#cityBtn').addClass("hide")
                     } else {
                         $('#cityBtn').removeClass("hide")
-                        $('#cityText').html(`${selectedCountry.name}'s top cities include ${result.data.cities.data[0].city}, ${result.data.cities.data[1].city} and ${result.data.cities.data[2].city}<br><br> Click the button below to find out more information about ${selectedCountry.name}'s top cities`)
+                        $('#cityText').html(` One of ${selectedCountry.name} largest cities is ${result.data.cities.data[0].city}<br><br> Click the button below to find out more information about ${selectedCountry.name}'s top cities`)
                     }
 
+                    
+                    //*Sets markers
+                        //? Removes marker cluster groups
+                    if(map.hasLayer(selectedCountry.markers)){
+                        selectedCountry.markers.remove()
+                    }
+
+                    const icon = L.icon({
+                        iconUrl: './libs/images/icon.png',
+                        iconSize: [38, 50],
+                        iconAnchor: [0,50],
+                        popupAnchor: [-3, -76],
+                       
+                    })
+
+                    selectedCountry.markers = L.markerClusterGroup();
+                        //? sets marker cluster groups
+                    selectedCountry.cities.data.forEach( i => {
+                        selectedCountry.markers.addLayer( L.marker([i.latitude, i.longitude], {
+                            title: i.name,
+                            icon: icon
+                        })).on('click', () => {
+                            cityInfoText(i.wikiDataId, i.name)
+                        })
+                    })
+
+                    
+                    map.addLayer(selectedCountry.markers)
+
+                   
+                    
+                    
+
+                    //*Sets News Tab
+                    if(result.data.news.status === "ok"){
+                        $('#newsDiv').removeClass('hidden')
+
+                        //? Sets News Cards Image
+                        $('#news1Img').attr('src', result.data.news.articles[0].media)
+                        $('#news2Img').attr('src', result.data.news.articles[1].media)
+                        $('#news3Img').attr('src', result.data.news.articles[2].media)
+                        
+                        //? Sets News Cards Alt Attr
+                        $('#news1Img').attr('alt', result.data.news.articles[0].title)
+                        $('#news2Img').attr('alt', result.data.news.articles[1].title)
+                        $('#news3Img').attr('alt', result.data.news.articles[2].title)
+                        
+                        
+                        //?Sets News Cards Titles
+                        $('#news1Title').html(result.data.news.articles[0].title)
+                        $('#news2Title').html(result.data.news.articles[1].title)
+                        $('#news3Title').html(result.data.news.articles[2].title)
+                        
+                        //?Sets News Cards Dates
+                        $('#news1Primary').html(result.data.news.articles[0].published_date)
+                        $('#news2Primary').html(result.data.news.articles[1].published_date)
+                        $('#news3Primary').html(result.data.news.articles[2].published_date)
+                        
+                        //? Sets News Cards Links
+                        $('#news1Link').attr('href', result.data.news.articles[0].link)
+                        $('#news2Link').attr('href', result.data.news.articles[1].link)
+                        $('#news3Link').attr('href', result.data.news.articles[2].link)
+                    } else {
+                        $('#newsDiv').addClass('hidden')
+                        $('#newsCardTitle').html("<h3>Unfortunately, No news feed is Available</h3>");
+                    }
+                        
+
+                    //*Sets Images Tab
+                        //? Sets Image Card Image
+                    $('#img1').attr('src', result.data.images.value[0].thumbnailUrl)
+                    $('#img2').attr('src', result.data.images.value[1].thumbnailUrl)
+                    $('#img3').attr('src', result.data.images.value[2].thumbnailUrl)
+
+                        //? Sets Image Card Alt Attr
+                    $('#img1').attr('alt', result.data.images.value[0].name)
+                    $('#img2').attr('alt', result.data.images.value[1].name)
+                    $('#img3').attr('alt', result.data.images.value[2].name)
+                        
+                        //? Sets Image Card Title
+                    $('#img1Title').html(result.data.images.value[0].name)
+                    $('#img2Title').html(result.data.images.value[1].name)
+                    $('#img3Title').html(result.data.images.value[2].name)
+
+                        //? Sets Image Link
+                    $('#imgLink1').attr('href', result.data.images.value[0].hostPageDisplayUrl)
+                    $('#imgLink1').attr('href', result.data.images.value[1].hostPageDisplayUrl)    
+                    $('#imgLink1').attr('href', result.data.images.value[2].hostPageDisplayUrl)
+                    
+                   
+                    
+
+
+                
                     //* Currency tab info with error handling
                     if (!result.data.exchangeRate.error){
                         $('#ERcalc').removeClass('hide') 
@@ -267,6 +408,7 @@ const getInfo = (code) => {
                     } else {
                         $('#currencyInfo').html(`${selectedCountry.name} uses ${selectedCountry.currency.symbol}${selectedCountry.currency.code} (${selectedCountry.currency.name}).<br><br> Unfortunately there is no information available to work out the exchange rate.`)
                         $('#ERcalc').addClass('hide') 
+                        
 
                     }
                 },
@@ -278,13 +420,32 @@ const getInfo = (code) => {
 
 
 //!  ------ Event Listeners ------
+map.on('click',  (e) => {
+    console.log(e.latlng.lat)
+    console.log(e.latlng.lng)
+
+    $.ajax({
+        url: "./libs/php/getUserCountry.php",
+        type: "POST",
+        dataType: "json",
+        data: {
+            lat: e.latlng.lat,
+            lng: e.latlng.lng
+        },
+        success : function(result){
+            cityInfoReset()
+            getInfo(result.data)
+           countrySelect.children(`option[value='${result.data}']`).prop('selected', true);
+
+        }
+    })
+})
+
 countrySelect.on('change', () => {
     $('#infocard').addClass('close')
     menu.removeClass('close')
     getInfo(countrySelect.val())
-    let cityInfoReset = () => {
-        $('#cityText').html('');
-    } 
+   
     cityInfoReset()
 })
 
@@ -300,12 +461,14 @@ menu.on('click', () => {
 
 $('#ERinput').on('change', () => {
     let output = $('#ERinput').val() * selectedCountry.currency.exchangeRate
-    $('#ERoutput').html(`${selectedCountry.currency.symbol} ${output.toFixed(2)}`)
+    $('#ERoutput').html(`${selectedCountry.currency.symbol}${output.toFixed(2).toLocaleString()}`)
 })
 
 $('#cityBtn').on('click' , () => {
-    cityInfoText()
+    randomCityFunc()
+    cityInfoText(selectedCountry.randomCity.id, selectedCountry.randomCity.name)
 })
+
 
 //! ------ Document Ready ------
 $(document).ready(function(){

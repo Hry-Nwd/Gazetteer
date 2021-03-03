@@ -1,40 +1,155 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-       "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
- <!--<meta http-equiv="Refresh" content="0;url=defaultsite" />-->
-  <meta http-equiv="cache-control" content="no-cache" />
-  <meta http-equiv="pragma" content="no-cache" />
-  <title> Harry Inwood, Junior Web Developer </title>
-  <link rel="stylesheet" type="text/css" href="libs/Styles/Style.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <!-- Latest compiled JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <!-- UK -->
-</head>
-<body>
-  <div class="container">
-    <header>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Vendors-->
+    <link
+      rel="stylesheet"
+      href="./libs/vendors/bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css"
+    />
+    <!-- Leaflet.JS stylesheet-->
+
+    <!-- Personal Style Sheets-->
+    <link rel="stylesheet" href="./libs/css/Main.css" />
+
+    <title>Harry Inwood Portfolio</title>
+  </head>
+  <body>
+    <div class="container my-5">
+      <h1>Hi, I'm Harry Inwood</h1>
+      <p class="lead">
+        Junior Web Developer​<br />Designing beautiful and functional user
+        experiences
+      </p>
+      <a
+        href="mailto:h.inwood@outlook.com"
+        type="button"
+        class="btn btn-outline-primary"
+        >Email me</a
+      >
+    </div>
+
+    <div class="container">
       <nav>
-        <ul>
-          <a href="index.html"><li>Home</li></a>
-          <a href="About/index.html"><li>About Me</li></a>
-          <a href="Portfolio/Index.html"><li>Portfolio</li></a>
-          <a href="Contact/index.html"><li>Contact</li></a>
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a href="#" class="nav-link active">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">Portfolio</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">About Me</a>
+          </li>
+        </ul>
       </nav>
-    </header>
-  
-    <main>
-      <article id="main">
-        <h1>Hello, I'm Harry Inwood</h1>
-        <h2>I'm an aspiring Junior Web Developer</h2>
-      <a href="Portfolio/" id="VMW">See what I can do</a>
-    </article>
-    </main>
-  </div>
-</body>
+    </div>
+
+    <div class="container row mt-5">
+      <div class="col">
+        <h3 class="mb-3">Work Experience</h3>
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="mx-3">
+              <h4>Self Taught Web Development</h4>
+              <div>
+                <strong>April 2020 - Current</strong>
+              </div>
+              Learning the basics of coding using HTML, CSS and JavaScript as
+              well as covering the basics of many other languages
+            </div>
+            <ul class="list-group list-group-flush mt-2">
+              <li class="list-group-item">Developing Basic Apps</li>
+              <li class="list-group-item">
+                Learning common languages and frameworks
+              </li>
+              <li class="list-group-item">
+                Qualifying in the 98-383: Introduction to Programming Using HTML
+                and CSS with a score of 92
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="mx-3">
+              <h4>Superyacht Deckhand</h4>
+              <div>
+                <strong>April 2015 - 2020</strong>
+              </div>
+              Travelling the world onboard some of the most luxurious yachts,
+              Teaching watersports and interacting with high profile guests
+            </div>
+            <ul class="list-group list-group-flush mt-2">
+              <li class="list-group-item">Team lead on night shifts</li>
+              <li class="list-group-item">
+                General manoevers and daily operations, such as anchoring,
+                mooring and launching tenders and toys
+              </li>
+              <li class="list-group-item">
+                IYT Master of Yachts 200GT Unlimited, Advanced Fire Fighting,
+                RYA Senior Windsurfing Instructor
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <h3 class="mb-3">Skills</h3>
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="mx-3">
+              <h4>Languages & frameworks</h4>
+              <ul>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>Bootstrap</li>
+                <li>jQuery</li>
+                <li>API's</li>
+                <li>PHP cURL</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-5">
+      <h3>Previous Projects</h3>
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="card mb-3 justify-content-center">
+            <img
+              style="width: 200px; height: 200px"
+              src="./libs/Images/Gazetteer-G.png"
+              alt="Gazetteer"
+              class="card-img-top"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Gazetteer</h5>
+              <p class="card-text">
+                Mobile first map app to locate countries from around the world
+                with basic functional exchange rate calculators and fact
+                displays
+              </p>
+              <div class="btn btn-primary">View Project</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <!-- jQuery Script-->
+      <script src="libs/vendors/jQuery/jquery-3.5.1.min.js"></script>
+      <!-- Popper Script-->
+      <script src="libs/vendors/node_modules/@popperjs/core/dist/umd/popper.js"></script>
+      <!-- Bootstrap Script-->
+      <script src="libs/vendors/bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js"></script>
+      <!-- Personal Scripts-->
+      <script src="libs/js/Script.js"></script>
+    </footer>
+  </body>
 </html>
