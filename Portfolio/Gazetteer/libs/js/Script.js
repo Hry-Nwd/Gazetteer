@@ -299,7 +299,7 @@ const getInfo = (code) => {
                         map.addLayer(selectedCountry.markers)
                         
                         //*General information tab
-                        $('#generalInfo').html(`${selectedCountry.capital} is the capital of ${selectedCountry.name}.<br><br> ${selectedCountry.language} is the main spoken language by approximately ${selectedCountry.population.toLocaleString()} people.<br><br> You can find out more over on Wikipedia`);
+                        $('#generalInfo').html(`${selectedCountry.capital} is the capital of ${selectedCountry.name}.<br><br> ${selectedCountry.language} is the main spoken language by approximately ${selectedCountry.population.toLocaleString()} people.<br><br> You can find out more over on Wikipedia.`);
                         //?Sets Wikipedia Link
                         if(!result.data.link.geonames === []){
                             selectedCountry.wikiLink = result.data.link.geonames[0].wikipediaUrl
@@ -309,12 +309,12 @@ const getInfo = (code) => {
                      //* Currency Tab
                      $('#ERcalc').removeClass('hide') 
                     
-                     $('#currencyInfo').html(`${selectedCountry.name} uses ${selectedCountry.currency.symbol}${selectedCountry.currency.code} (${selectedCountry.currency.name})<br><br> The current exchange rate is ${selectedCountry.currency.symbol}${selectedCountry.currency.exchangeRateText} to the ${user.currency.name}`)  
+                     $('#currencyInfo').html(`${selectedCountry.name} uses ${selectedCountry.currency.symbol}${selectedCountry.currency.code} (${selectedCountry.currency.name}).<br><br> The current exchange rate is ${selectedCountry.currency.symbol}${selectedCountry.currency.exchangeRateText} to the ${user.currency.name}.`)  
                          
                     //* Sets Weather Tab Info
                     
                    
-                    $("#weatherInfo").html(`The current tempurature in ${selectedCountry.name} is ${selectedCountry.weather.celc}°C with ${selectedCountry.weather.description} and wind speeds of ${selectedCountry.weather.mph} miles per hour`)
+                    $("#weatherInfo").html(`The current temperature in ${selectedCountry.name} is ${selectedCountry.weather.celc}°C with ${selectedCountry.weather.description} and wind speeds of ${selectedCountry.weather.mph} miles per hour.`)
                     
                         //? Sets forcast
                     let day1Milli = result.data.weather.daily[1].dt * 1000;
@@ -341,7 +341,7 @@ const getInfo = (code) => {
                    
                     //* Sets Covid Tab
                     
-                    $('#covidText').html(`${selectedCountry.name} currently has ${result.data.covid[0].confirmed.toLocaleString()} overall cases with  ${result.data.covid[0].deaths.toLocaleString()} people sadly dead.<br><br> ${selectedCountry.name} currently has ${result.data.covid[0].critical.toLocaleString()} patients in critical condition. However, more than ${result.data.covid[0].recovered.toLocaleString()} people have already recovered from the virus`)
+                    $('#covidText').html(`${selectedCountry.name} currently has ${result.data.covid[0].confirmed.toLocaleString()} overall cases with  ${result.data.covid[0].deaths.toLocaleString()} people sadly dead.<br><br> ${selectedCountry.name} currently has ${result.data.covid[0].critical.toLocaleString()} patients in critical condition. However, more than ${result.data.covid[0].recovered.toLocaleString()} people have already recovered from the virus.`)
                     
                     
                     //*Sets cities tab
@@ -349,7 +349,7 @@ const getInfo = (code) => {
                     $('#cityBtn').removeClass("hide")
                     $('#newsCardBody').fadeIn()
                     $('#imagesBody').fadeIn()
-                    $('#cityText').html(` One of ${selectedCountry.name} largest cities is ${result.data.cities.data[0].city}<br><br> Click the button below to find out more information about ${selectedCountry.name}'s top cities`)
+                    $('#cityText').html(` One of ${selectedCountry.name} largest cities is ${result.data.cities.data[0].city}.<br><br> Click the button below to find out more information about ${selectedCountry.name}'s top cities.`)
 
                     //*Sets News Tab
                     if(result.data.news.status === "No matches for your search."){
