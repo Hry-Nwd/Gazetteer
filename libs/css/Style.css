@@ -1,12 +1,42 @@
-.main {
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+body {
+  background-color: #0b0c10;
+  color: #c6c6c7;
 }
 
-body {
-  background-color: rgba(8, 8, 8, 0.589);
+.card,
+.card-body,
+.list-group,
+.list-group-item,
+.card-img-top {
+  background-color: #1f2833;
+  color: whitesmoke;
+}
+
+.card {
+  border: #45a29e 1px solid;
+}
+
+.btn-outline-info {
+  color: #c6c6c7;
+  border: #45a29e 1px solid;
+}
+
+.btn-outline-info:hover {
+  color: white;
+  background-color: #66fcf1;
+}
+
+h1 {
+  color: #66fcf1;
+  font-size: 8rem;
+  text-transform: uppercase;
+}
+
+li {
+  list-style: none;
+}
+
+.card-img-top {
+  position: relative;
+  top: 4px;
 }
