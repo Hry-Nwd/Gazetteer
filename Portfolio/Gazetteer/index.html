@@ -16,35 +16,26 @@
     />
     <link rel="stylesheet" href="libs/vendors/node_modules/leaflet.markercluster/dist/MarkerCluster.css">
     <link rel="stylesheet" href="libs/vendors/node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="libs/vendors/leaflet.extra-marker/dist/css/leaflet.extra-markers.min.css">
     <!-- Personal Style Sheets-->
     <link rel="stylesheet" href="./libs/css/Main.css" />
 
     <title>Gazeteer</title>
   </head>
   <body>
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#" id="gazeteer"><img id="gazeteer" src="./libs/images/Logo no black surround.png"></a>
-          <div class="row">
-            <select id="country-sel" name="country" class="col-sm"></select>
-          </div>
-        </ul>
-      </div>
-      </nav>
-    </header>
     <div id="map"></div>
     <div class="container close" id="infocard">
       <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false">
         <div>
           <div class="row infocardHeader justify-content-center">
-            <h1 class="col-8" id="countryName"></h1>
+            
             <img
               class="col-4"
               src=""
               alt=""
               id="flag"
             />
+            <select id="country-sel" name="country" class="col-6"></select>
               <div class="col-10" id="headerBreak">
               </div>
             </div>
@@ -227,7 +218,10 @@
       </div>
     </div>
     <div id="menuDiv">
-      <button class="btn btn-secondary" id="menuBtn">Menu</button>
+      <button class="btn btn-outline-secondary" id="menuBtn">
+
+        <img src="libs/images/Gazetteer-G.png" id="menuImg">
+      </button>
     </div>
     
   
@@ -245,6 +239,8 @@
       <!-- Leaflet Script-->
       <script src="libs/vendors/node_modules/leaflet/dist/leaflet.js"></script>
       <script src="libs/vendors/node_modules/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+      <script src="libs/vendors/leaflet.extra-marker/dist/js/leaflet.extra-markers.min.js"></script>
+
       <!-- Personal Scripts-->
       <script src="libs/js/Script.js"></script>
     </footer>

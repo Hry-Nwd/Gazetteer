@@ -29,7 +29,7 @@ body {
 h1 {
   color: #66fcf1;
   font-size: 8rem;
-  text-transform: uppercase;
+  text-transform: capitalize;
 }
 
 li {

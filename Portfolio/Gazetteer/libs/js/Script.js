@@ -63,10 +63,7 @@ const WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/
 const WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
 });
-const WorldPhysical = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}', {
-	attribution: 'Tiles &copy; Esri &mdash; Source: US National Park Service',
-	maxZoom: 8
-});
+
 
 const NatGeoWorldMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
 	attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',
@@ -77,7 +74,6 @@ const baseMaps = {
        
     "Street Map": WorldStreetMap,
     "Satellite" : WorldImagery,
-    "Terrain" : WorldPhysical,
     "National Geographic": NatGeoWorldMap
 
 };
@@ -86,11 +82,32 @@ const map = L.map('map', {
     center: [39.73, -104.99],
     zoom: 10,
     minZoom: 2,
-    layers: [WorldStreetMap, WorldImagery, WorldPhysical, NatGeoWorldMap],
+    layers: [WorldStreetMap],
     zoomControl : false
     });
 //* --- Controls --- 
-L.control.layers(baseMaps, null, {position: 'bottomright'} ).addTo(map)
+L.control.layers(baseMaps).addTo(map);
+
+//* --- Icons ---
+var redMarker = L.ExtraMarkers.icon({
+    icon: 'fa-coffee',
+    markerColor: 'green',
+    shape: 'star',
+    prefix: 'fa'
+  });
+
+  const whiteCog = L.ExtraMarkers.icon({
+    shape: 'penta',
+    markerColor: 'white',
+    prefix: 'icon',
+    icon: 'plus sign',
+    iconColor: '#fff',
+    iconRotate: 0,
+    extraClasses: '',
+    number: '',
+    svg: false
+  })
+
 
 //! ------ Functions ------
 
@@ -144,7 +161,7 @@ const cityInfoText = (cityId,city) => {
            
             
            
-            map.flyTo([result.data.city.data.latitude, result.data.city.data.longitude], 10);
+            
 
             $.ajax({
                 url: "libs/php/getNearbyPoi.php",
@@ -158,20 +175,24 @@ const cityInfoText = (cityId,city) => {
 
                 success: function(result){
                     
-                    if(map.hasLayer(selectedCountry.markers)){
-                        selectedCountry.marker.remove()
+                    if(map.hasLayer(selectedCountry.markers.poiMarkers)){
+                        selectedCountry.markers.poiMarkers.remove()
                     }
+
+                    selectedCountry.markers.poiMarkers = L.markerClusterGroup()
+                    
                     result.data.poi.results.forEach( i => {
-                          selectedCountry.markers.addLayer( L.marker([i.location.lat, i.location.lng], {
+                          selectedCountry.markers.poiMarkers.addLayer( L.marker([i.location.lat, i.location.lng], {
                                 title: i.name,
-                                color: '#00FF00'
+                                icon: whiteCog
                             })
                             .on('click', () => {
                             }).bindPopup(`<h5>${i.name}</h5><br><a role="button" type="button" class="btn btn-outline-secondary" target="_blank" href="${i.website}"> Visit the website!</a><br><strong>${i.address}</strong>`).openPopup()
                             )                            
                         })
                      
-                    map.addLayer(selectedCountry.markers)
+                    map.addLayer(selectedCountry.markers.poiMarkers)
+                    map.fitBounds(selectedCountry.markers.poiMarkers.getBounds());
 
                 }
             })
@@ -282,21 +303,22 @@ const getInfo = (code) => {
                     
                     //*Sets markers
                     //? Removes marker cluster groups
-                    if(map.hasLayer(selectedCountry.markers)){
-                        selectedCountry.markers.remove()
+                    if(map.hasLayer(selectedCountry.markers.cityMarkers)){
+                        selectedCountry.markers.cityMarkers.remove()
                     }
                     
-                    selectedCountry.markers = L.markerClusterGroup();
+                    selectedCountry.markers.cityMarkers = L.markerClusterGroup();
                     //? sets marker cluster groups
                         selectedCountry.cities.data.forEach( i => {
-                            selectedCountry.markers.addLayer( L.marker([i.latitude, i.longitude], {
+                            selectedCountry.markers.cityMarkers.addLayer( L.marker([i.latitude, i.longitude], {
                                 title: i.name,
+                                icon: redMarker
                             }).on('click', () => {
                                 cityInfoText(i.wikiDataId, i.name)
                             })
                             )
                         })
-                        map.addLayer(selectedCountry.markers)
+                        map.addLayer(selectedCountry.markers.cityMarkers)
                         
                         //*General information tab
                         $('#generalInfo').html(`${selectedCountry.capital} is the capital of ${selectedCountry.name}.<br><br> ${selectedCountry.language} is the main spoken language by approximately ${selectedCountry.population.toLocaleString()} people.<br><br> You can find out more over on Wikipedia.`);
