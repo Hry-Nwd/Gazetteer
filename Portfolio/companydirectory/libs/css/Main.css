@@ -1,0 +1,30 @@
+.card {
+  position: fixed;
+  margin: 0 auto;
+  z-index: 2;
+}
+#moreInfo{
+  background-color: rgba(22, 33, 44, 0.5);
+}
+#moreInfo, #editEmployee, #deleteEmployee,#addEmployee,#addDepartment,#addLocation,#deleteLocation, #deleteDepartment {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+  opacity: 0;
+}
+
+#moreInfo.show, #editEmployee.show, #deleteEmployee.show, #addEmployee.show,#addDepartment.show,#addLocation.show,#deleteLocation.show, #deleteDepartment.show {
+  opacity: 1;
+  z-index: 1;
+  transition: opacity 0.5s ease;
+}
+
+#personnelTable.hide{
+  opacity: 0;
+}

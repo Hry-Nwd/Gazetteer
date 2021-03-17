@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Vendors-->
+    <link
+      rel="stylesheet"
+      href="./libs/vendors/bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css"
+    />
+    <!-- Leaflet.JS stylesheet-->
+    <!-- Personal Style Sheets-->
+    <link rel="stylesheet" href="./libs/css/Main.css" />
+
+    <title>Company Directory</title>
+  </head>
+  <body>
+    <div class="bg-light position-sticky top-0">
+
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container justify-content-center">
+          <a class="navbar-brand" href="#">Company Directory</a>
+          
+          <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          id="searchInput"
+          />
+          <select
+          class="form-control me-2 text-center"
+          name="location"
+          id="location"
+          >
+          <option value="all">All Locations</option>
+        </select>
+        <select class="form-control me-2" name="department" id="department">
+          <option value="all">All Departments</option>
+        </select>
+        
+        <button class="btn me-2 btn-outline-success" type="submit" id="search">Search</button>
+      </div>
+      
+    </nav>
+    
+    <div class="container " >
+      <ul class="nav nav-tabs  ">
+        <li class="nav-item">
+          <a class="nav-link active text-success" href="#" id="personnel">Personnel</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-success" href="#" id="departments">Departments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-success" href="#" id="locations">Locations</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-success" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Add</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item text-success" href="#" id="newPersonnel">Personnel</a></li>
+              <li><a class="dropdown-item text-success" href="#" id="newDepartment">Department</a></li>
+              <li><a class="dropdown-item text-success" href="#" id="newLocation">Location</a></li>
+            </ul>
+          </li>
+      </ul>
+    </div>
+  </div>
+    
+    <div class="container">
+      <div id="moreInfo">
+        <div id="editEmployee"></div>
+        <div id="deleteEmployee"></div>
+        <div id="deleteDepartment"></div>
+        <div id="deleteLocation"></div>
+        <div id="addEmployee"></div>
+        <div id="addDepartment"></div>
+        <div id="addLocation"></div>
+      </div>
+
+      <div id="departmentsTable" class="results collapse">
+        <table class="table table-hover">
+          <thead class="" >
+            <tr >
+              <th scope="col" class="">#</th>
+              <th scope="col" class="">Name</th>
+              <th scope="col" class="">Employees</th>
+              <th scope="col" class="">Location</th>
+              <th scope="col" class="">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="departmentTable"></tbody>
+        </table>
+      </div>
+
+      <div id="locationTable" class="results collapse">
+        <table class="table table-hover">
+          <thead class="" >
+            <tr >
+              <th scope="col" class="">#</th>
+              <th scope="col" class="">Name</th>
+              <th scope="col" class="">Departments</th>
+              <th scope="col" class="">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="locationsTable"></tbody>
+        </table>
+      </div>
+
+      <div class="collapse results show" id="personnelTable">
+        <table class="table table-hover">
+          <thead class="" >
+            <tr >
+              <th scope="col" class="">#</th>
+              <th scope="col" class="">Last Name</th>
+              <th scope="col" class="">First Name</th>
+              <th scope="col" class="d-none d-lg-table-cell">Job Title</th>
+              <th scope="col" class="d-none d-lg-table-cell">Department</th>
+              <th scope="col" class="d-none d-lg-table-cell">Location</th>
+              <th scope="col" class="d-none d-lg-table-cell">Email</th>
+              <th scope="col" class="d-none d-lg-table-cell text-center">Actions</th>
+              <th scope="col" class="text-center d-lg-none">More Info</th>
+            </tr>
+          </thead>
+          <tbody id="resultsTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  </body>
+
+  <footer>
+    <!-- jQuery Script-->
+    <script src="libs/vendors/jQuery/jquery-3.5.1.min.js"></script>
+    <!-- Popper Script-->
+    <script src="libs/vendors/node_modules/@popperjs/core/dist/umd/popper.js"></script>
+    <!-- Bootstrap Script-->
+    <script src="libs/vendors/bootstrap-5.0.0-beta1-dist/js/bootstrap.min.js"></script>
+    <!-- Personal Scripts-->
+    <script src="libs/js/Script.js"></script>
+  </footer>
+</html>
