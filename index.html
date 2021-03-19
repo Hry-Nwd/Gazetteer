@@ -16,22 +16,20 @@
 
     <title>Harry Inwood Portfolio</title>
   </head>
-  <body>
-    <div class="container text-center my-5">
-      <h1>I'm <br />Harry <br />Inwood</h1>
-      <p class="lead">
-        Junior Web Developer​<br />Designing beautiful and functional user
-        experiences
+  <body class="row">
+    <div id="main" class="container my-5 col-11 gx-5 mx-5" style="z-index: 1">
+      <h1>Harry <br />Inwood</h1>
+      <p class="lead" style="">
+        Junior Web Developer​<br />Designing & building beautiful, functional
+        user experiences
       </p>
       <a
         href="mailto:h.inwood@outlook.com"
         type="button"
+        #
         class="btn btn-outline-info"
         >Email me</a
       >
-    </div>
-
-    <p class="container text-center my-5">
       <a
         class="btn btn-outline-info"
         data-bs-toggle="collapse"
@@ -55,11 +53,17 @@
       >
         About me
       </a>
-    </p>
+    </div>
+    <div class="container my-5 col-1">
+      <img id="devicesImg" src="./libs/Images/Devices.svg" style="" />
+    </div>
 
-    <div class="container mt-5 collapse" id="projects">
-      <div class="row justify-content-center">
-        <div class="col-sm-4">
+    <div
+      class="container mt-5 collapse gy-5 col-8 justify-content-start"
+      id="projects"
+    >
+      <div class="row text-center">
+        <div class="">
           <div class="card mb-3 align-items-center">
             <img
               style="width: 100px; height: 100px"
@@ -88,10 +92,28 @@
       </div>
     </div>
 
-    <div class="container mt-5 text-center collapse" id="about">
+    <div class="container mt-5 col-10 gx-5 collapse" id="about">
       <div class="row justify-content-center">
+        <div class="col-10 text-center">
+          <h3 class="mb-3">Skills</h3>
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="mx-3">
+                <h4>Languages & Frameworks</h4>
+                <ul>
+                  <li>HTML</li>
+                  <li>CSS</li>
+                  <li>JavaScript</li>
+                  <li>Bootstrap</li>
+                  <li>jQuery</li>
+                  <li>PHP cURL</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
         <h3 class="mb-3">Work Experience</h3>
-        <div class="card mb-3 align-items-center">
+        <div class="card mb-3">
           <div class="card-body">
             <div class="mx-3">
               <h4>Self Taught Web Development</h4>
@@ -134,24 +156,6 @@
                 RYA Senior Windsurfing Instructor
               </li>
             </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <h3 class="mb-3">Skills</h3>
-        <div class="card mb-3">
-          <div class="card-body">
-            <div class="mx-3">
-              <h4>Languages & Frameworks</h4>
-              <ul>
-                <li>HTML</li>
-                <li>CSS</li>
-                <li>JavaScript</li>
-                <li>Bootstrap</li>
-                <li>jQuery</li>
-                <li>PHP cURL</li>
-              </ul>
-            </div>
           </div>
         </div>
       </div>

@@ -32,11 +32,11 @@
 
 	}	
 
-	$query = 'SELECT p.lastName, p.firstName, p.id, p.email, d.name as department, d.id, l.name as location
+	$query = 'SELECT p.lastName, p.firstName, p.id , p.email, p.jobTitle, d.name as department, d.id as depId, l.name as location
                 FROM personnel p
                 LEFT JOIN department d ON (d.id = p.departmentID) 
                 LEFT JOIN location l ON (l.id = d.locationID) 
-                WHERE p.lastName LIKE "'.$_REQUEST['string'].'%" AND l.id LIKE "'.$_REQUEST['location'] . '" AND d.id LIKE "'.$_REQUEST['department'].'" OR p.firstName LIKE "'.$_REQUEST['string'].'%" AND l.id LIKE "'.$_REQUEST['location'] . '" AND d.id LIKE "'.$_REQUEST['department'].'" 
+                WHERE p.lastName LIKE "'.$_REQUEST['string'].'%" AND l.id LIKE "'.$_REQUEST['location'] . '" AND d.id LIKE "'.$_REQUEST['department'].'" OR p.firstName LIKE "'.$_REQUEST['string'].'%" AND l.id LIKE "'.$_REQUEST['location'] . '" AND d.id LIKE "'.$_REQUEST['department'].'" OR jobTitle LIKE "'.$_REQUEST['string'].'%" AND l.id LIKE "'.$_REQUEST['location'] . '" AND d.id LIKE "'.$_REQUEST['department'].'" 
                 ORDER BY p.lastName, p.firstName, d.name, l.name'; 
 
 	$result = $conn->query($query);

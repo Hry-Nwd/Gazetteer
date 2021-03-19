@@ -187,7 +187,7 @@ const cityInfoText = (cityId,city) => {
                                 icon: whiteCog
                             })
                             .on('click', () => {
-                            }).bindPopup(`<h5>${i.name}</h5><br><a role="button" type="button" class="btn btn-outline-secondary" target="_blank" href="${i.website}"> Visit the website!</a><br><strong>${i.address}</strong>`).openPopup()
+                            }).bindPopup(`<h5>${i.name}</h5><br><a role="button" type="button" class="btn btn-outline-secondary" target="_blank" href="${i.website}"> Visit the website!</a><br><strong><br />${i.address}</strong>`).openPopup()
                             )                            
                         })
                      
@@ -315,18 +315,19 @@ const getInfo = (code) => {
                                 icon: redMarker
                             }).on('click', () => {
                                 cityInfoText(i.wikiDataId, i.name)
-                            })
+                            }).bindTooltip(`Click me to find local landmarks in ${i.name}`).openTooltip()
                             )
                         })
+
                         map.addLayer(selectedCountry.markers.cityMarkers)
                         
                         //*General information tab
                         $('#generalInfo').html(`${selectedCountry.capital} is the capital of ${selectedCountry.name}.<br><br> ${selectedCountry.language} is the main spoken language by approximately ${selectedCountry.population.toLocaleString()} people.<br><br> You can find out more over on Wikipedia.`);
                         //?Sets Wikipedia Link
-                        if(!result.data.link.geonames === []){
+                        
                             selectedCountry.wikiLink = result.data.link.geonames[0].wikipediaUrl
                             $('#wikiBtn').attr('href', `https://${selectedCountry.wikiLink}`)
-                        }
+                        
 
                      //* Currency Tab
                      $('#ERcalc').removeClass('hide') 

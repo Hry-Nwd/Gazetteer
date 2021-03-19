@@ -1,6 +1,14 @@
 body {
-  background-color: #0b0c10;
+  background-image: radial-gradient(
+    Farthest-side at 100% 150%,
+    rgb(50, 45, 300),
+    rgb(40, 40, 200),
+    rgb(45, 30, 50),
+    rgb(50, 20, 100)
+  );
   color: #c6c6c7;
+  width: 100vw;
+  min-height: 100vh;
 }
 
 .card,
@@ -8,7 +16,7 @@ body {
 .list-group,
 .list-group-item,
 .card-img-top {
-  background-color: #1f2833;
+  background-color: #1f283367;
   color: whitesmoke;
 }
 
@@ -16,19 +24,39 @@ body {
   border: #45a29e 1px solid;
 }
 
+.verticalCenter {
+  min-height: 100%;
+  min-height: 100vh;
+}
+
+#devicesImg {
+  height: auto;
+  width: 60vw;
+  max-height: 600px;
+  min-width: 350px;
+  opacity: 0.5;
+  z-index: -1;
+  position: absolute;
+  right: 0;
+  bottom: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .btn-outline-info {
-  color: #c6c6c7;
-  border: #45a29e 1px solid;
+  color: #c6c6c7cc;
+  border: rgba(248, 61, 36, 0.705) 1px solid;
 }
 
 .btn-outline-info:hover {
-  color: white;
-  background-color: #66fcf1;
+  color: #c6c6c7;
+  border: rgb(102, 45, 145) 2px solid;
+  background-color: rgb(248, 60, 36, 0.7);
 }
 
 h1 {
-  color: #66fcf1;
-  font-size: 8rem;
+  color: #ffffff;
+  font-size: 5rem;
   text-transform: capitalize;
 }
 
@@ -39,4 +67,8 @@ li {
 .card-img-top {
   position: relative;
   top: 4px;
+}
+
+#main {
+  text-shadow: 0px 1px 2px #000000;
 }
