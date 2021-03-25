@@ -29,7 +29,7 @@
 
 	}	
 
-	$query = 'SELECT id, name, locationID FROM department ORDER BY name';
+	$query = 'SELECT id, name, locationID FROM department';
 
 	$result = $conn->query($query);
 	

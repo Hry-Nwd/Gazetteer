@@ -9,125 +9,524 @@
       rel="stylesheet"
       href="./libs/vendors/bootstrap-5.0.0-beta1-dist/css/bootstrap.min.css"
     />
-    <!-- Leaflet.JS stylesheet-->
     <!-- Personal Style Sheets-->
     <link rel="stylesheet" href="./libs/css/Main.css" />
 
     <title>Company Directory</title>
   </head>
   <body>
-    <div class="bg-light position-sticky top-0">
-
+    <!--!Navigation Bar-->
+    <div class="bg-light">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container justify-content-center">
           <a class="navbar-brand" href="#">Company Directory</a>
-          
+
           <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Search by name or job"
-          aria-label="Search"
-          id="searchInput"
+            class="form-control me-2"
+            type="search"
+            placeholder="Search by name or job title"
+            aria-label="Search"
+            id="searchInput"
           />
           <select
-          class="form-control me-2 text-center"
-          name="location"
-          id="location"
+            class="form-control me-2 text-center"
+            name="location"
+            id="location"
           >
-          <option value="all">All Locations</option>
-        </select>
-        <select class="form-control me-2" name="department" id="department">
-          <option value="all">All Departments</option>
-        </select>
-        
-        <button class="btn me-2 btn-outline-success" type="submit" id="search">Search</button>
-      </div>
-      
-    </nav>
-    
-    <div class="container " >
-      <ul class="nav nav-tabs  ">
-        <li class="nav-item">
-          <a class="nav-link active text-success" href="#" id="personnel">Personnel</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-success" href="#" id="departments">Departments</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-success" href="#" id="locations">Locations</a>
+            <option value="all">All Locations</option>
+          </select>
+          <select class="form-control me-2" name="department" id="department">
+            <option value="all">All Departments</option>
+          </select>
+        </div>
+      </nav>
+
+      <div class="container">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active text-success" href="#" id="personnel"
+              >Personnel</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-success" href="#" id="departments"
+              >Departments</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-success" href="#" id="locations"
+              >Locations</a
+            >
+          </li>
+
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-success" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Add</a>
+            <a
+              class="nav-link dropdown-toggle text-success"
+              data-bs-toggle="dropdown"
+              href="#"
+              role="button"
+              aria-expanded="false"
+              >Add</a
+            >
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item text-success" href="#" id="newPersonnel">Personnel</a></li>
-              <li><a class="dropdown-item text-success" href="#" id="newDepartment">Department</a></li>
-              <li><a class="dropdown-item text-success" href="#" id="newLocation">Location</a></li>
+              <li>
+                <a class="dropdown-item text-success" href="#" id="newPersonnel"
+                 data-bs-toggle="modal" data-bs-target="#addEmployeeModal">
+                  Personnel</a
+                >
+              </li>
+              <li>
+                <a
+                  class="dropdown-item text-success"
+                  href="#"
+                  id="newDepartment"
+                  data-bs-toggle="modal"
+                  data-bs-target="#addDepartmentModal"
+                  >Department</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item text-success" href="#" id="newLocation" data-bs-toggle="modal" data-bs-target="#addLocationModal"
+                  >Location</a
+                >
+              </li>
             </ul>
           </li>
-      </ul>
-    </div>
-  </div>
-    
-    <div class="container">
-      <div id="moreInfo">
-        <div id="editEmployee"></div>
-        <div id="deleteEmployee"></div>
-        <div id="deleteDepartment"></div>
-        <div id="deleteLocation"></div>
-        <div id="addEmployee"></div>
-        <div id="addDepartment"></div>
-        <div id="addLocation"></div>
-      </div>
-
-      <div id="departmentsTable" class="results collapse">
-        <table class="table table-hover">
-          <thead class="" >
-            <tr >
-              <th scope="col" class="">#</th>
-              <th scope="col" class="">Name</th>
-              <th scope="col" class="">Employees</th>
-              <th scope="col" class="">Location</th>
-              <th scope="col" class="">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="departmentTable"></tbody>
-        </table>
-      </div>
-
-      <div id="locationTable" class="results collapse">
-        <table class="table table-hover">
-          <thead class="" >
-            <tr >
-              <th scope="col" class="">#</th>
-              <th scope="col" class="">Name</th>
-              <th scope="col" class="">Departments</th>
-              <th scope="col" class="">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="locationsTable"></tbody>
-        </table>
-      </div>
-
-      <div class="collapse results show" id="personnelTable">
-        <table class="table table-hover">
-          <thead class="" >
-            <tr >
-              <th scope="col" class="">#</th>
-              <th scope="col" class="">Last Name</th>
-              <th scope="col" class="">First Name</th>
-              <th scope="col" class="d-none d-lg-table-cell">Job Title</th>
-              <th scope="col" class="d-none d-lg-table-cell">Department</th>
-              <th scope="col" class="d-none d-lg-table-cell">Location</th>
-              <th scope="col" class="d-none d-lg-table-cell">Email</th>
-              <th scope="col" class="d-none d-lg-table-cell text-center">Actions</th>
-              <th scope="col" class="text-center d-lg-none">More Info</th>
-            </tr>
-          </thead>
-          <tbody id="resultsTable"></tbody>
-        </table>
+        </ul>
       </div>
     </div>
+    <!-- !editModal -->
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      aria-labelledby="editModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalTitle"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="editModalBody">
+            <form
+              class="row g-3 needs-validation justify-content-center"
+              novalidate
+            >
+              <div class="col-md-10">
+                <label
+                  for="editModalJobTitle"
+                  id="jobTitlePrepend"
+                  class="form-label"
+                  >Job Title</label
+                >
+                <div class="input-group has-validation">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="editModalJobTitle"
+                    aria-describedby="jobTitlePrepend"
+                    required
+                  />
+                  <div class="invalid-feedback">Please enter a Job Title.</div>
+                </div>
+              </div>
+              <div class="col-md-10">
+                <label for="editModalEmail" class="form-label">Email</label>
+                <div class="input-group has-validation">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="editModalEmail"
+                    aria-describedby="emailPrepend"
+                    required
+                  />
+                  <div class="invalid-feedback">Please enter an email.</div>
+                </div>
+              </div>
+              <div class="col-md-10">
+                <label for="editModalDepartment" class="form-label"
+                  >Department</label
+                >
+                <select class="form-control" id="editModalDepartment"></select>
+                <div class="invalid-feedback">Please Select a department.</div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer" id="editModalFooter">
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- !infoModal-->
+    <div
+      class="modal fade"
+      id="infoModal"
+      tabindex="-1"
+      aria-labelledby="editModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="infoModalTitle"></h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="infoModalBody">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" id="">
+                <strong>Job Title</strong>: <span id="infoModalJobTitle"></span>
+              </li>
+              <li class="list-group-item" id="">
+                <strong>Email</strong>: <span id="infoModalEmail"></span>
+              </li>
+              <li class="list-group-item" id="">
+                <strong>Department</strong>:
+                <span id="infoModalDepartment"></span>
+              </li>
+              <li class="list-group-item" id="">
+                <strong>Location</strong>: <span id="infoModalLocation"></span>
+              </li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-success"
+              data-bs-toggle="modal"
+              data-bs-target="#editModal"
+              data-bs-dismiss="modal"
+            >
+              Edit
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-toggle="modal"
+              data-bs-target="#deleteModal"
+              data-bs-dismiss="modal"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- !deleteModal-->
+    <div
+      class="modal fade"
+      id="deleteModal"
+      tabindex="-1"
+      aria-labelledby="editModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="deleteModalBody">
+            <p>
+              Are you sure you want to remove <span id="deleteModalName"></span>
+              from the database?
+            </p>
+          </div>
+          <div class="modal-footer" id="deleteModalFooter">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- !AddEmployeeModal-->
+    <div
+      class="modal fade"
+      id="addEmployeeModal"
+      tabindex="-1"
+      aria-labelledby="addEmployeeModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addEmplpoyeeModalTitle">New Employee</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="addEmployeeModalBody">
+            <form class="row g-3 needs-validation justify-content-center" id="employeeForm" novalidate>
+                <div class="col-md-4">
+                    <label for="firstName" class="form-label">First name</label>
+                    <input type="text" class="form-control" id="firstName" value="" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="lastName" class="form-label">Last name</label>
+                    <input type="text" class="form-control" id="lastName" value="" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <label for="jobTitle" id="jobTitlePrepend" class="form-label">Job Title</label>
+                    <div class="input-group has-validation">
+                        <input type="text" class="form-control" id="jobTitle" aria-describedby="jobTitlePrepend" required>
+                        <div class="invalid-feedback">
+                            Please enter a Job Title.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <label for="personnelDepartmentAdd" class="form-label">Department</label>
+                    <select class="form-control" id="personnelDepartmentAdd"></select>
+                    <div class="invalid-feedback">
+                        Please Select a department.
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <label for="Email" class="form-label">Email</label>
+                    <div class="input-group has-validation">
+                        
+                        <input type="text" class="form-control" id="email" aria-describedby="emailPrepend" required>
+                        <div class="invalid-feedback">
+                            Please enter an email.
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                type="submit"
+                class="btn btn-outline-success"
+                id="confirmAddBtn"
+                >
+                Submit
+              </button>
+            </form>
+            <button
+              type="button"
+              class="btn btn-outline-danger"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- !AddDepartmentModal-->
+    <div 
+    class="modal fade"
+    id="addDepartmentModal"
+    tabindex="-1"
+    aria-labelledby="addEmployeeModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addDepartmentModalTitle">New department</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body" id="addDepartmentModalBody">
+          <form class="row g-3 needs-validation justify-content-center" id="departmentForm" novalidate>
+            <div class="col-md-6">
+                <label for="departmentName" class="form-label">Department Name</label>
+                <input type="text" class="form-control" id="departmentName" value="" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="col-md-8">
+                <label for="deapartmentLocationAdd" class="form-label">Location</label>
+                <select class="form-select" id="departmentLocationAdd" required>
+                </select>
+                <div class="invalid-feedback">
+                    Please select a valid location.
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button
+              type="submit"
+              class="btn btn-outline-success"
+              id="confirmAddDepBtn"
+              >
+              Submit
+            </button>
+          </form>
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    <div 
+    class="modal fade"
+    id="addLocationModal"
+    tabindex="-1"
+    aria-labelledby="addLocationModalTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addLocationModalTitle">New Location</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body" id="addLocationModalBody">
+          <form class="row g-3 needs-validation justify-content-center" id="locationForm" novalidate>
+            <div class="col-md-6">
+                <label for="locationName" class="form-label">location Name</label>
+                <input type="text" class="form-control" id="locationName" value="" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button
+              type="submit"
+              class="btn btn-outline-success"
+              id="confirmAddLocBtn"
+              >
+              Submit
+            </button>
+          </form>
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+    </div>
   </div>
-  
+    <!-- !successModal-->
+    <div
+      class="modal fade"
+      id="successModal"
+      tabindex="-1"
+      aria-labelledby="editModalTitle"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="successModalBody">
+          </div>
+          <div class="modal-footer">
+            <button
+              id="successClose"
+              type="button"
+              class="btn btn-outline-success"
+              data-bs-dismiss="modal"
+            >
+              Okay
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="departmentsTable" class="results collapse">
+      <table class="table table-hover">
+        <thead class="">
+          <tr>
+            <th scope="col" class="">#</th>
+            <th scope="col" class="">Name</th>
+            <th scope="col" class="">Employees</th>
+            <th scope="col" class="">Location</th>
+            <th scope="col" class="">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="departmentTable"></tbody>
+      </table>
+    </div>
+
+    <div id="locationTable" class="results collapse">
+      <table class="table table-hover">
+        <thead">
+          <tr>
+            <th scope="col" class="">#</th>
+            <th scope="col" class="">Name</th>
+            <th scope="col" class="">Departments</th>
+            <th scope="col" class="">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="locationsTable"></tbody>
+      </table>
+    </div>
+
+    <div class="collapse results show" id="personnelTable">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col" class="">#</th>
+            <th scope="col" class="">Last Name</th>
+            <th scope="col" class="">First Name</th>
+            <th scope="col" class="d-none d-lg-table-cell">Job Title</th>
+            <th scope="col" class="d-none d-lg-table-cell">Department</th>
+            <th scope="col" class="d-none d-lg-table-cell">Location</th>
+            <th scope="col" class="d-none d-lg-table-cell">Email</th>
+            <th scope="col" class="d-none d-lg-table-cell text-center">
+              Actions
+            </th>
+            <th scope="col" class="text-center d-lg-none">More Info</th>
+          </tr>
+        </thead>
+        <tbody id="resultsTable"></tbody>
+      </table>
+    </div>
   </body>
 
   <footer>
