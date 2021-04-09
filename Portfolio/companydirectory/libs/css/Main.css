@@ -23,3 +23,7 @@ th::after {
 body {
   overflow: hidden;
 }
+
+.jobTitle {
+  text-transform: capitalize;
+}

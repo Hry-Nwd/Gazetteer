@@ -9,7 +9,10 @@ const popLocation = (element) => {
         dataType: 'json',
 
         success: function(result){
-            $('#location').html(`<option value="all" selected>All Locations</option>`)
+        
+            if(element === $('#location')){
+                $('#location').html(`<option value="all" selected>All Locations</option>`)
+            }
             result.data.forEach(datum => {
                 element.append(`<option value="${datum.id}">${datum.name}</option>`)
                 
@@ -26,7 +29,10 @@ const popDepartment = (element) => {
         dataType: 'json',
 
         success: function(result){
-           $('#department').html(`<option value="all" selected>All Departments</option>`)
+            
+            if(element === $('#department')){
+                $('#department').html(`<option value="all" selected>All Departments</option>`)
+            }
             result.data.forEach(datum => {
                 element.append(`<option value="${datum.id}">${datum.name}</option>`)
             })
@@ -151,7 +157,7 @@ function personnelSearch(string) {
                     <td scope="row" class="d-table-cell">${i + 1}</td>
                     <td class="d-table-cell">${value.lastName}</td>
                     <td class="d-table-cell">${value.firstName}</td>
-                    <td class="d-none d-lg-table-cell">${value.jobTitle}</td>
+                    <td class="d-none d-lg-table-cell jobTitle">${value.jobTitle}</td>
                     <td class="d-none d-lg-table-cell">${value.department}</td>
                     <td class=" d-none d-lg-table-cell">${value.location}</td>
                     <td class="d-none d-lg-table-cell">${value.email}</td>
@@ -700,15 +706,20 @@ $('#successClose').click(function(){
 
 //! ====== $().ready ======
 $().ready( () => {
+
+    popDepartment($('#department'))
+    popLocation($('#location'))
+
+    popDepartment($('#personnelDepartmentAdd'))
+    popLocation($('#departmentLocationAdd'))
+
     personnelSearch("")
     departmentTablePop()
     locationTablePop()
 
-    popDepartment($('#personnelDepartmentAdd'))
-    popLocation($('#departmentLocationAdd'))
+   
     
-    popDepartment($('#department'))
-    popLocation($('#location'))
+ 
     
    
 })
